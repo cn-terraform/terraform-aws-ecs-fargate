@@ -8,30 +8,30 @@ Check valid versions on:
 * Github Releases: <https://github.com/jnonino/terraform-aws-ecs-fargate/releases>
 * Terraform Module Registry: <https://registry.terraform.io/modules/jnonino/ecs-fargate/aws>
 
-    module "ecs-fargate: 
-        source              = "jnonino/ecs-fargate/aws"
-        version             = "1.0.0"
-        name_preffix        = "${var.name_preffix}"
-        profile             = "${var.profile}"
-        region              = "${var.region}"
-        vpc_id              = "${module.networking.vpc_id}"
-        availability_zones  = [ "${var.availability_zones}" ]
-        public_subnets_ids  = [ "${module.networking.public_subnets_ids}" ]
-        private_subnets_ids = [ "${module.networking.private_subnets_ids}" ]
-        container_name               = "${var.name_preffix}-sonar"
-        container_image              = "<IMAGE_NAME>:<IMAGE_TAG>"
-        container_cpu                = 1024
-        container_memory             = 8192
-        container_memory_reservation = 2048
-        essential                    = true
-        container_port               = 9000
-        environment = [
-            {
-                name  = "<VARIABLE_NAME>"
-                value = "<VARIABLE_VALUE>"
-            }
-        ]
-    }
+        module "ecs-fargate: 
+            source              = "jnonino/ecs-fargate/aws"
+            version             = "1.0.0"
+            name_preffix        = "${var.name_preffix}"
+            profile             = "${var.profile}"
+            region              = "${var.region}"
+            vpc_id              = "${module.networking.vpc_id}"
+            availability_zones  = [ "${var.availability_zones}" ]
+            public_subnets_ids  = [ "${module.networking.public_subnets_ids}" ]
+            private_subnets_ids = [ "${module.networking.private_subnets_ids}" ]
+            container_name               = "${var.name_preffix}-sonar"
+            container_image              = "<IMAGE_NAME>:<IMAGE_TAG>"
+            container_cpu                = 1024
+            container_memory             = 8192
+            container_memory_reservation = 2048
+            essential                    = true
+            container_port               = 9000
+            environment = [
+                {
+                    name  = "<VARIABLE_NAME>"
+                    value = "<VARIABLE_VALUE>"
+                }
+            ]
+        }
 
 ## Output values
 
