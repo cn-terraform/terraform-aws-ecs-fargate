@@ -8,7 +8,7 @@ Check valid versions on:
 * Github Releases: <https://github.com/jnonino/terraform-aws-ecs-fargate/releases>
 * Terraform Module Registry: <https://registry.terraform.io/modules/jnonino/ecs-fargate/aws>
 
-        module "ecs-fargate: 
+        module "ecs-fargate": 
             source              = "jnonino/ecs-fargate/aws"
             version             = "1.0.0"
             name_preffix        = "${var.name_preffix}"
