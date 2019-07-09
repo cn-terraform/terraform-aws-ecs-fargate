@@ -35,7 +35,7 @@ variable "private_subnets_ids" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# AWS ECS Variables
+# AWS ECS Container Definition Variables
 # ---------------------------------------------------------------------------------------------------------------------
 variable "container_port" {
     description = "Port on which the container is listening"
@@ -129,9 +129,9 @@ variable "readonly_root_filesystem" {
     default     = "false"
 }
 variable "repository_credentials" {
-  type        = "map"
-  description = "Container repository credentials; required when using a private repo.  This map currently supports a single key; \"credentialsParameter\", which should be the ARN of a Secrets Manager's secret holding the credentials"
-  default     = {}
+    type        = "map"
+    description = "Container repository credentials; required when using a private repo.  This map currently supports a single key; \"credentialsParameter\", which should be the ARN of a Secrets Manager's secret holding the credentials"
+    default     = {}
 }
 variable "secrets" {
     type        = "list"
@@ -139,22 +139,22 @@ variable "secrets" {
     default     = []
 }
 variable "stop_timeout" {
-  description = "Timeout in seconds between sending SIGTERM and SIGKILL to container"
-  default     = 30
+    description = "Timeout in seconds between sending SIGTERM and SIGKILL to container"
+    default     = 30
 }
 variable "ulimits" {
-  type        = "list"
-  description = "Container ulimit settings. This is a list of maps, where each map should contain \"name\", \"hardLimit\" and \"softLimit\""
-  default     = []
+    type        = "list"
+    description = "Container ulimit settings. This is a list of maps, where each map should contain \"name\", \"hardLimit\" and \"softLimit\""
+    default     = []
 }
 variable "user" {
-  description = "The user to run as inside the container. Can be any of these formats: user, user:group, uid, uid:gid, user:gid, uid:group"
-  default     = ""
+    description = "The user to run as inside the container. Can be any of these formats: user, user:group, uid, uid:gid, user:gid, uid:group"
+    default     = ""
 }
 variable "volumes_from" {
-  type        = "list"
-  description = "A list of VolumesFrom maps which contain \"sourceContainer\" (name of the container that has the volumes to mount) and \"readOnly\" (whether the container can write to the volume)."
-  default     = []
+    type        = "list"
+    description = "A list of VolumesFrom maps which contain \"sourceContainer\" (name of the container that has the volumes to mount) and \"readOnly\" (whether the container can write to the volume)."
+    default     = []
 }
 variable "working_directory" {
     type        = "string"
@@ -162,8 +162,20 @@ variable "working_directory" {
     default     = ""
 }
 
-
-
-
-
-
+# ---------------------------------------------------------------------------------------------------------------------
+# AWS ECS Task Definition Variables
+# ---------------------------------------------------------------------------------------------------------------------
+variable "ipc_mode" {
+    description = "The IPC resource namespace to be used for the containers in the task The valid values are \"host\", \"task\", and \"none\"."
+    default     = "null"
+}
+variable "placement_constraints" {
+    type        = "list"
+    description = "A set of placement constraints rules that are taken into consideration during task placement. Maximum number of placement_constraints is 10. This is a list of maps, where each map should contain \"type\" and \"expression\""
+    default     = []
+}
+variable "proxy_configuration" {
+    type        = "list"
+    description = "The proxy configuration details for the App Mesh proxy. This is a list of maps, where each map should contain \"container_name\", \"properties\" and \"type\""
+    default     = []
+}

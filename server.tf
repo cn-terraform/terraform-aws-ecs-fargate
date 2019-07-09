@@ -36,12 +36,15 @@ module "container_definition" {
 resource "aws_ecs_task_definition" "td" {
     family                   = "${var.name_preffix}-td"
     container_definitions    = "[ ${module.container_definition.json_map} ]"
-    requires_compatibilities = [ "FARGATE" ]
+    task_role_arn            = "${aws_iam_role.ecs_task_execution_role.arn}"
+    execution_role_arn       = "${aws_iam_role.ecs_task_execution_role.arn}"
     network_mode             = "awsvpc"
+    ipc_mode                 = "${var.ipc_mode}"
+    placement_constraints    = "${var.placement_constraints}"
     cpu                      = "${var.container_cpu}"
     memory                   = "${var.container_memory}"
-    execution_role_arn       = "${aws_iam_role.ecs_task_execution_role.arn}"
-    task_role_arn            = "${aws_iam_role.ecs_task_execution_role.arn}"
+    requires_compatibilities = [ "FARGATE" ]
+    proxy_configuration      = "${var.proxy_configuration}"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
