@@ -2,22 +2,23 @@
 # PROVIDER
 # ---------------------------------------------------------------------------------------------------------------------
 provider "aws" {
-    profile   = "${var.profile}"
-    region    = "${var.region}"
+  profile = var.profile
+  region  = var.region
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # ECS Cluster
 # ---------------------------------------------------------------------------------------------------------------------
 resource "aws_ecs_cluster" "cluster" {
-    name = "${var.name_preffix}"
+  name = var.name_preffix
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # AWS KMS Encryption Key
 # ---------------------------------------------------------------------------------------------------------------------
 resource "aws_kms_key" "encryption_key" {
-    description = "${var.name_preffix} ECS Encryption Key"
-    is_enabled = true
-    enable_key_rotation = true
+  description         = "${var.name_preffix} ECS Encryption Key"
+  is_enabled          = true
+  enable_key_rotation = true
 }
+
