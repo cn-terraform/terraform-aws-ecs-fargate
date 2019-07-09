@@ -24,17 +24,17 @@ variable "vpc_id" {
 }
 
 variable "availability_zones" {
-  type        = list(string)
+  type        = list
   description = "List of Availability Zones"
 }
 
 variable "public_subnets_ids" {
-  type        = list(string)
+  type        = list
   description = "List of Public Subnets IDs"
 }
 
 variable "private_subnets_ids" {
-  type        = list(string)
+  type        = list
   description = "List of Private Subnets IDs"
 }
 
@@ -54,7 +54,7 @@ variable "container_name" {
 }
 
 variable "command" {
-  type        = list(string)
+  type        = list
   description = "The command that is passed to the container"
   default     = [""]
 }
@@ -66,7 +66,7 @@ variable "container_cpu" {
 }
 
 variable "container_depends_on" {
-  type        = list(string)
+  type        = list
   description = "The dependencies defined for container startup and shutdown. A container can contain multiple dependencies. When a dependency is defined for container startup, for container shutdown it is reversed"
   default     = []
 }
@@ -84,19 +84,19 @@ variable "container_memory_reservation" {
 }
 
 variable "dns_servers" {
-  type        = list(string)
+  type        = list
   description = "Container DNS servers. This is a list of strings specifying the IP addresses of the DNS servers."
   default     = []
 }
 
 variable "entrypoint" {
-  type        = list(string)
+  type        = list
   description = "The entry point that is passed to the container"
   default     = [""]
 }
 
 variable "environment" {
-  type        = list(string)
+  type        = list
   description = "The environment variables to pass to the container. This is a list of maps. Each map should contain `name` and `value`"
   default     = []
 }
@@ -108,13 +108,13 @@ variable "essential" {
 }
 
 variable "healthcheck" {
-  type        = map(string)
+  type        = map
   description = "A map containing command (string), interval (duration in seconds), retries (1-10, number of times to retry before marking container unhealthy, and startPeriod (0-300, optional grace period to wait, in seconds, before failed healthchecks count toward retries)"
   default     = {}
 }
 
 variable "links" {
-  type        = list(string)
+  type        = list
   description = "List of container names this container can communicate with without port mappings."
   default     = []
 }
@@ -129,7 +129,7 @@ locals {
 }
 
 variable "mount_points" {
-  type        = list(string)
+  type        = list
   description = "Container mount points. This is a list of maps, where each map should contain a `containerPath` and `sourceVolume`"
   default     = []
 }
@@ -151,13 +151,13 @@ variable "readonly_root_filesystem" {
 }
 
 variable "repository_credentials" {
-  type        = map(string)
+  type        = map
   description = "Container repository credentials; required when using a private repo.  This map currently supports a single key; \"credentialsParameter\", which should be the ARN of a Secrets Manager's secret holding the credentials"
   default     = {}
 }
 
 variable "secrets" {
-  type        = list(string)
+  type        = list
   description = "The secrets to pass to the container. This is a list of maps"
   default     = []
 }
@@ -168,7 +168,7 @@ variable "stop_timeout" {
 }
 
 variable "ulimits" {
-  type        = list(string)
+  type        = list
   description = "Container ulimit settings. This is a list of maps, where each map should contain \"name\", \"hardLimit\" and \"softLimit\""
   default     = []
 }
@@ -179,7 +179,7 @@ variable "user" {
 }
 
 variable "volumes_from" {
-  type        = list(string)
+  type        = list
   description = "A list of VolumesFrom maps which contain \"sourceContainer\" (name of the container that has the volumes to mount) and \"readOnly\" (whether the container can write to the volume)."
   default     = []
 }
@@ -199,13 +199,13 @@ variable "ipc_mode" {
 }
 
 variable "placement_constraints" {
-  type        = list(string)
+  type        = list
   description = "A set of placement constraints rules that are taken into consideration during task placement. Maximum number of placement_constraints is 10. This is a list of maps, where each map should contain \"type\" and \"expression\""
   default     = []
 }
 
 variable "proxy_configuration" {
-  type        = list(string)
+  type        = list
   description = "The proxy configuration details for the App Mesh proxy. This is a list of maps, where each map should contain \"container_name\", \"properties\" and \"type\""
   default     = []
 }
