@@ -193,11 +193,6 @@ variable "working_directory" {
 # ---------------------------------------------------------------------------------------------------------------------
 # AWS ECS Task Definition Variables
 # ---------------------------------------------------------------------------------------------------------------------
-variable "ipc_mode" {
-  description = "The IPC resource namespace to be used for the containers in the task The valid values are \"host\", \"task\", and \"none\"."
-  default     = "null"
-}
-
 variable "placement_constraints" {
   type        = list
   description = "A set of placement constraints rules that are taken into consideration during task placement. Maximum number of placement_constraints is 10. This is a list of maps, where each map should contain \"type\" and \"expression\""

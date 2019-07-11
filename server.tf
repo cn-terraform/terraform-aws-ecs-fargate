@@ -39,7 +39,6 @@ resource "aws_ecs_task_definition" "td" {
   task_role_arn         = aws_iam_role.ecs_task_execution_role.arn
   execution_role_arn    = aws_iam_role.ecs_task_execution_role.arn
   network_mode          = "awsvpc"
-  ipc_mode              = var.ipc_mode
   dynamic "placement_constraints" {
     for_each = var.placement_constraints
     content {
