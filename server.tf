@@ -43,11 +43,6 @@ resource "aws_ecs_task_definition" "td" {
   dynamic "placement_constraints" {
     for_each = var.placement_constraints
     content {
-      # TF-UPGRADE-TODO: The automatic upgrade tool can't predict
-      # which keys might be set in maps assigned here, so it has
-      # produced a comprehensive set here. Consider simplifying
-      # this after confirming which keys can be set in practice.
-
       expression = lookup(placement_constraints.value, "expression", null)
       type       = placement_constraints.value.type
     }
@@ -58,11 +53,6 @@ resource "aws_ecs_task_definition" "td" {
   dynamic "proxy_configuration" {
     for_each = var.proxy_configuration
     content {
-      # TF-UPGRADE-TODO: The automatic upgrade tool can't predict
-      # which keys might be set in maps assigned here, so it has
-      # produced a comprehensive set here. Consider simplifying
-      # this after confirming which keys can be set in practice.
-
       container_name = proxy_configuration.value.container_name
       properties     = lookup(proxy_configuration.value, "properties", null)
       type           = lookup(proxy_configuration.value, "type", null)
