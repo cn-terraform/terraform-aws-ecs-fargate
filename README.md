@@ -12,12 +12,12 @@ Check valid versions on:
 
         module "ecs-fargate": 
             source              = "jnonino/ecs-fargate/aws"
-            version             = "2.0.3"
+            version             = "2.0.4"
             name_preffix        = var.name_preffix
             profile             = var.profile
             region              = var.region
             vpc_id              = module.networking.vpc_id
-            availability_zones  = var.availability_zones
+            availability_zones  = module.networking.availability_zones
             public_subnets_ids  = module.networking.public_subnets_ids
             private_subnets_ids = module.networking.private_subnets_ids
             container_name               = "${var.name_preffix}-sonar"
@@ -39,7 +39,7 @@ The networking module should look like this:
 
         module "networking" {
     		source          = "jnonino/networking/aws"
-            version         = "2.0.2"
+            version         = "2.0.3"
             name_preffix    = "base"
             profile         = "aws_profile"
             region          = "us-east-1"
