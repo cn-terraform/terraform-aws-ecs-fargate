@@ -25,7 +25,7 @@ resource "aws_lb_target_group" "lb_tg" {
   port        = var.container_port
   vpc_id      = var.vpc_id
   health_check {
-    path = "/"
+    path = var.health_check_path
     port = var.container_port
   }
   tags = {

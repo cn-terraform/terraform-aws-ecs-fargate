@@ -112,6 +112,10 @@ variable "healthcheck" {
   description = "A map containing command (string), interval (duration in seconds), retries (1-10, number of times to retry before marking container unhealthy, and startPeriod (0-300, optional grace period to wait, in seconds, before failed healthchecks count toward retries)"
   default     = {}
 }
+variable "health_check_path" {
+  description = "(Optional) The destination for the health check request."
+  default     = "/"
+}
 
 variable "links" {
   type        = list
