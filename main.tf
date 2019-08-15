@@ -10,9 +10,9 @@ provider "aws" {
 # ECS Cluster
 # ---------------------------------------------------------------------------------------------------------------------
 module "ecs-cluster" {
-  source       = "jnonino/ecs-cluster/aws"
-  version      = "1.0.1"
-  name_preffix = var.name_preffix
-  profile      = var.profile
-  region       = var.region
+  source  = "jnonino/ecs-cluster/aws"
+  version = "1.0.1"
+  name    = var.name_preffix
+  profile = var.profile
+  region  = var.region
 }
