@@ -1,4 +1,28 @@
 # ---------------------------------------------------------------------------------------------------------------------
+# AWS Cloudwatch Logs
+# ---------------------------------------------------------------------------------------------------------------------
+module "aws_cw_logs" {
+  source    = "jnonino/cloudwatch-logs/aws"
+  version   = "1.0.2"
+  logs_path = local.log_options["awslogs-group"]
+  profile   = var.profile
+  region    = var.region
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# AWS ECS Task Execution Role
+# ---------------------------------------------------------------------------------------------------------------------
+resource "aws_iam_role" "ecs_task_execution_role" {
+  name               = "${var.name_preffix}-ecs-task-execution-role"
+  assume_role_policy = file("${path.module}/files/iam/ecs_task_execution_iam_role.json")
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy_attach" {
+  role       = aws_iam_role.ecs_task_execution_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
 # ECS Task Definition
 # ---------------------------------------------------------------------------------------------------------------------
 module "container_definition" {
@@ -58,26 +82,3 @@ resource "aws_ecs_task_definition" "td" {
     }
   }
 }
-
-# ---------------------------------------------------------------------------------------------------------------------
-# AWS ECS Service
-# ---------------------------------------------------------------------------------------------------------------------
-resource "aws_ecs_service" "service" {
-  name            = "${var.name_preffix}-service"
-  depends_on      = [aws_lb_listener.listener]
-  cluster         = aws_ecs_cluster.cluster.id
-  task_definition = aws_ecs_task_definition.td.arn
-  launch_type     = "FARGATE"
-  desired_count   = 1
-  network_configuration {
-    security_groups  = [aws_security_group.ecs_tasks_sg.id]
-    subnets          = var.private_subnets_ids
-    assign_public_ip = true
-  }
-  load_balancer {
-    target_group_arn = aws_lb_target_group.lb_tg.arn
-    container_name   = var.container_name
-    container_port   = var.container_port
-  }
-}
-

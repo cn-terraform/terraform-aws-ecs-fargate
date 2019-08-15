@@ -9,16 +9,12 @@ provider "aws" {
 # ---------------------------------------------------------------------------------------------------------------------
 # ECS Cluster
 # ---------------------------------------------------------------------------------------------------------------------
-resource "aws_ecs_cluster" "cluster" {
-  name = var.name_preffix
+module "ecs-cluster": 
+  source       = "jnonino/ecs-cluster/aws"
+  version      = "1.0.1"
+  name_preffix = var.name_preffix
+  profile      = var.profile
+  region       = var.region
 }
 
-# ---------------------------------------------------------------------------------------------------------------------
-# AWS KMS Encryption Key
-# ---------------------------------------------------------------------------------------------------------------------
-resource "aws_kms_key" "encryption_key" {
-  description         = "${var.name_preffix} ECS Encryption Key"
-  is_enabled          = true
-  enable_key_rotation = true
-}
 
