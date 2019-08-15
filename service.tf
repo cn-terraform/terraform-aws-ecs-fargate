@@ -82,7 +82,7 @@ resource "aws_cloudwatch_metric_alarm" "cpu_high" {
   statistic           = "Maximum"
   threshold           = "85"
   dimensions = {
-    ClusterName = aws_ecs_cluster.cluster.name
+    ClusterName = module.ecs-cluster.aws_ecs_cluster_cluster_name
     ServiceName = aws_ecs_service.service.name
   }
   alarm_actions = [aws_appautoscaling_policy.scale_up_policy.arn]
@@ -101,7 +101,7 @@ resource "aws_cloudwatch_metric_alarm" "cpu_low" {
   statistic           = "Average"
   threshold           = "10"
   dimensions = {
-    ClusterName = aws_ecs_cluster.cluster.name
+    ClusterName = module.ecs-cluster.aws_ecs_cluster_cluster_name
     ServiceName = aws_ecs_service.service.name
   }
   alarm_actions = [aws_appautoscaling_policy.scale_down_policy.arn]
@@ -114,7 +114,7 @@ resource "aws_appautoscaling_policy" "scale_up_policy" {
   name               = "${var.name_preffix}-scale-up-policy"
   depends_on         = [aws_appautoscaling_target.scale_target]
   service_namespace  = "ecs"
-  resource_id        = "service/${aws_ecs_cluster.cluster.name}/${aws_ecs_service.service.name}"
+  resource_id        = "service/${module.ecs-cluster.aws_ecs_cluster_cluster_name}/${aws_ecs_service.service.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   step_scaling_policy_configuration {
     adjustment_type         = "ChangeInCapacity"
@@ -134,7 +134,7 @@ resource "aws_appautoscaling_policy" "scale_down_policy" {
   name               = "${var.name_preffix}-scale-down-policy"
   depends_on         = [aws_appautoscaling_target.scale_target]
   service_namespace  = "ecs"
-  resource_id        = "service/${aws_ecs_cluster.cluster.name}/${aws_ecs_service.service.name}"
+  resource_id        = "service/${module.ecs-cluster.aws_ecs_cluster_cluster_name}/${aws_ecs_service.service.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   step_scaling_policy_configuration {
     adjustment_type         = "ChangeInCapacity"
@@ -152,7 +152,7 @@ resource "aws_appautoscaling_policy" "scale_down_policy" {
 # ---------------------------------------------------------------------------------------------------------------------
 resource "aws_appautoscaling_target" "scale_target" {
   service_namespace  = "ecs"
-  resource_id        = "service/${aws_ecs_cluster.cluster.name}/${aws_ecs_service.service.name}"
+  resource_id        = "service/${module.ecs-cluster.aws_ecs_cluster_cluster_name}/${aws_ecs_service.service.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   role_arn           = aws_iam_role.ecs_autoscale_role.arn
   min_capacity       = 1
