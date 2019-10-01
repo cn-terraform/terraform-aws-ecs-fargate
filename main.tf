@@ -57,8 +57,8 @@ module "ecs-fargate-task-definition" {
 # ECS Service
 # ---------------------------------------------------------------------------------------------------------------------
 module "ecs-fargate-service" { 
-  source              = "jnonino/ecs-fargate-service/aws"
-  version             = "1.0.2"
+  source              = "cn-terraform/ecs-fargate-service/aws"
+  version             = "1.0.3"
   name_preffix        = var.name_preffix
   profile             = var.profile
   region              = var.region
