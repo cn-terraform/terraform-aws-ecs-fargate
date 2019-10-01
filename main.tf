@@ -21,8 +21,8 @@ module "ecs-cluster" {
 # ECS Task Definition
 # ---------------------------------------------------------------------------------------------------------------------
 module "ecs-fargate-task-definition" {
-  source       = "jnonino/ecs-fargate-task-definition/aws"
-  version      = "1.0.2"
+  source       = "cn-terraform/ecs-fargate-task-definition/aws"
+  version      = "1.0.3"
   name_preffix = var.name_preffix
   profile      = var.profile
   region       = var.region
