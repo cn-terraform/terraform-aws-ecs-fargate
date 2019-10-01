@@ -10,8 +10,8 @@ provider "aws" {
 # ECS Cluster
 # ---------------------------------------------------------------------------------------------------------------------
 module "ecs-cluster" {
-  source  = "jnonino/ecs-cluster/aws"
-  version = "1.0.1"
+  source  = "cn-terraform/ecs-cluster/aws"
+  version = "1.0.2"
   name    = var.name_preffix
   profile = var.profile
   region  = var.region
