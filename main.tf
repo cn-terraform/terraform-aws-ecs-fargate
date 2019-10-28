@@ -22,7 +22,7 @@ module "ecs-cluster" {
 # ---------------------------------------------------------------------------------------------------------------------
 module "ecs-fargate-task-definition" {
   source       = "cn-terraform/ecs-fargate-task-definition/aws"
-  version      = "1.0.4"
+  version      = "1.0.5"
   name_preffix = var.name_preffix
   profile      = var.profile
   region       = var.region
@@ -35,11 +35,13 @@ module "ecs-fargate-task-definition" {
   container_memory             = var.container_memory
   container_memory_reservation = var.container_memory_reservation
   dns_servers                  = var.dns_servers
+  docker_labels                = var.docker_labels
   entrypoint                   = var.entrypoint
   environment                  = var.environment
   essential                    = var.essential
   healthcheck                  = var.healthcheck
   links                        = var.links
+  log_configuration            = var.log_configuration
   mount_points                 = var.mount_points
   readonly_root_filesystem     = var.readonly_root_filesystem
   repository_credentials       = var.repository_credentials
@@ -52,6 +54,8 @@ module "ecs-fargate-task-definition" {
   working_directory            = var.working_directory
   placement_constraints        = var.placement_constraints_task_definition
   proxy_configuration          = var.proxy_configuration
+  system_controls              = var.system_controls
+  firelens_configuration       = var.firelens_configuration
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
