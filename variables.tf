@@ -166,6 +166,11 @@ variable "secrets" {
   default     = []
 }
 
+variable "start_timeout" {
+  description = "(Optional) Time duration (in seconds) to wait before giving up on resolving dependencies for a container."
+  default     = 30
+}
+
 variable "stop_timeout" {
   description = "(Optional) Timeout in seconds between sending SIGTERM and SIGKILL to container"
   default     = 30

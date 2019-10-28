@@ -22,7 +22,7 @@ module "ecs-cluster" {
 # ---------------------------------------------------------------------------------------------------------------------
 module "ecs-fargate-task-definition" {
   source       = "cn-terraform/ecs-fargate-task-definition/aws"
-  version      = "1.0.3"
+  version      = "1.0.4"
   name_preffix = var.name_preffix
   profile      = var.profile
   region       = var.region
@@ -44,6 +44,7 @@ module "ecs-fargate-task-definition" {
   readonly_root_filesystem     = var.readonly_root_filesystem
   repository_credentials       = var.repository_credentials
   secrets                      = var.secrets
+  start_timeout                = var.start_timeout
   stop_timeout                 = var.stop_timeout
   ulimits                      = var.ulimits
   user                         = var.user
