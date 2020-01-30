@@ -63,7 +63,7 @@ module "ecs-fargate-task-definition" {
 # ---------------------------------------------------------------------------------------------------------------------
 module "ecs-fargate-service" {
   source              = "cn-terraform/ecs-fargate-service/aws"
-  version             = "1.0.6"
+  version             = "1.0.7"
   name_preffix        = var.name_preffix
   profile             = var.profile
   region              = var.region
