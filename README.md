@@ -15,9 +15,9 @@ Check valid versions on:
 * Github Releases: <https://github.com/cn-terraform/terraform-aws-ecs-fargate/releases>
 * Terraform Module Registry: <https://registry.terraform.io/modules/cn-terraform/ecs-fargate/aws>
 
-        module "ecs-fargate" {  
+        module "ecs-fargate" {
             source              = cn-terraform/ecs-fargate/aws
-            version             = 2.0.7
+            version             = 2.0.8
             name_preffix        = var.name_preffix
             profile             = var.profile
             region              = var.region
@@ -42,7 +42,7 @@ Check valid versions on:
 
 The networking module should look like this:
 
-        module "networking" { 
+        module "networking" {
     		    source          = cn-terraform/networking/aws
             version         = 2.0.3
             name_preffix    = base
@@ -126,10 +126,10 @@ Check versions for this module on:
 * aws_ecs_task_definition_td_family: The family of the Task Definition.
 * aws_ecs_task_definition_td_revision: The revision of the task in a particular family.
 * container_port: Port on which the container is listening
-* aws_ecs_service_service_id: The Amazon Resource Name (ARN) that identifies the service. 
-* aws_ecs_service_service_name: The name of the service. 
-* aws_ecs_service_service_cluster: The Amazon Resource Name (ARN) of cluster which the service runs on. 
-* aws_ecs_service_service_desired_count: The number of instances of the task definition 
+* aws_ecs_service_service_id: The Amazon Resource Name (ARN) that identifies the service.
+* aws_ecs_service_service_name: The name of the service.
+* aws_ecs_service_service_cluster: The Amazon Resource Name (ARN) of cluster which the service runs on.
+* aws_ecs_service_service_desired_count: The number of instances of the task definition
 * lb_id: Load Balancer ID
 * lb_arn: Load Balancer ARN
 * lb_arn_suffix: Load Balancer ARN Suffix
