@@ -68,7 +68,8 @@ module "ecs-fargate-service" {
   profile             = var.profile
   region              = var.region
   vpc_id              = var.vpc_id
-  subnets             = var.private_subnets_ids
+  private_subnets     = var.private_subnets_ids
+  public_subnets      = var.public_subnets_ids
 
   ecs_cluster_name      = module.ecs-cluster.aws_ecs_cluster_cluster_name
   ecs_cluster_arn       = module.ecs-cluster.aws_ecs_cluster_cluster_arn
