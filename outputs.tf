@@ -1,6 +1,14 @@
 # ---------------------------------------------------------------------------------------------------------------------
 # ECS CLUSTER
 # ---------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+# ECS CLUSTER
+# ---------------------------------------------------------------------------------------------------------------------
 output "aws_ecs_cluster_cluster_name" {
   description = "The name of the cluster"
   value       = module.ecs-cluster.aws_ecs_cluster_cluster_name
@@ -70,22 +78,22 @@ output "container_port" {
 # AWS ECS SERVICE
 # ---------------------------------------------------------------------------------------------------------------------
 output "aws_ecs_service_service_id" {
-  description = "The Amazon Resource Name (ARN) that identifies the service." 
+  description = "The Amazon Resource Name (ARN) that identifies the service."
   value       = module.ecs-fargate-service.aws_ecs_service_service_id
 }
 
 output "aws_ecs_service_service_name" {
-  description = "The name of the service." 
+  description = "The name of the service."
   value       = module.ecs-fargate-service.aws_ecs_service_service_name
 }
 
 output "aws_ecs_service_service_cluster" {
-  description = "The Amazon Resource Name (ARN) of cluster which the service runs on." 
+  description = "The Amazon Resource Name (ARN) of cluster which the service runs on."
   value       = module.ecs-fargate-service.aws_ecs_service_service_cluster
 }
 
 output "aws_ecs_service_service_desired_count" {
-  description = "The number of instances of the task definition" 
+  description = "The number of instances of the task definition"
   value       = module.ecs-fargate-service.aws_ecs_service_service_desired_count
 }
 
@@ -115,4 +123,47 @@ output "lb_dns_name" {
 output "lb_zone_id" {
   description = "$${var.name_preffix} Load Balancer Zone ID"
   value       = module.ecs-fargate-service.lb_zone_id
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# AWS SECURITY GROUPS
+# ---------------------------------------------------------------------------------------------------------------------
+output "lb_sg_id" {
+  description = "$${var.name_preffix} Load Balancer Security Group - The ID of the security group"
+  value       = module.ecs-fargate-service.lb_sg_id
+}
+
+output "lb_sg_arn" {
+  description = "$${var.name_preffix} Load Balancer Security Group - The ARN of the security group"
+  value       = module.ecs-fargate-service.lb_sg_arn
+}
+
+output "lb_sg_name" {
+  description = "$${var.name_preffix} Load Balancer Security Group - The name of the security group"
+  value       = module.ecs-fargate-service.lb_sg_name
+}
+
+output "lb_sg_description" {
+  description = "$${var.name_preffix} Load Balancer Security Group - The description of the security group"
+  value       = module.ecs-fargate-service.lb_sg_description
+}
+
+output "ecs_tasks_sg_id" {
+  description = "$${var.name_preffix} ECS Tasks Security Group - The ID of the security group"
+  value       = module.ecs-fargate-service.ecs_tasks_sg_id
+}
+
+output "ecs_tasks_sg_arn" {
+  description = "$${var.name_preffix} ECS Tasks Security Group - The ARN of the security group"
+  value       = module.ecs-fargate-service.ecs_tasks_sg_arn
+}
+
+output "ecs_tasks_sg_name" {
+  description = "$${var.name_preffix} ECS Tasks Security Group - The name of the security group"
+  value       = module.ecs-fargate-service.ecs_tasks_sg_name
+}
+
+output "ecs_tasks_sg_description" {
+  description = "$${var.name_preffix} ECS Tasks Security Group - The description of the security group"
+  value       = module.ecs-fargate-service.ecs_tasks_sg_description
 }
