@@ -11,7 +11,7 @@ provider "aws" {
 # ---------------------------------------------------------------------------------------------------------------------
 module ecs-cluster {
   source  = "cn-terraform/ecs-cluster/aws"
-  version = "1.0.2"
+  version = "1.0.3"
   name    = var.name_preffix
   profile = var.profile
   region  = var.region
@@ -63,7 +63,7 @@ module "ecs-fargate-task-definition" {
 # ---------------------------------------------------------------------------------------------------------------------
 module "ecs-fargate-service" {
   source              = "cn-terraform/ecs-fargate-service/aws"
-  version             = "1.0.7"
+  version             = "1.0.10"
   name_preffix        = var.name_preffix
   profile             = var.profile
   region              = var.region
