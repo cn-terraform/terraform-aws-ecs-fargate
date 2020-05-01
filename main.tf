@@ -150,7 +150,7 @@ module "ecs-fargate-service" {
   platform_version                   = var.platform_version
   propagate_tags                     = var.propagate_tags
   service_registries                 = var.service_registries
-  task_definition_arn                = module.ecs-fargate-task-definition.aws_ecs_task_definition_td_arn
+  task_definition_arn                = module.td.aws_ecs_task_definition_td_arn
 
   # Network configuration block
   public_subnets   = var.public_subnets_ids
