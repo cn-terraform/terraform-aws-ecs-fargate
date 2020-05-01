@@ -302,7 +302,7 @@ variable "working_directory" {
 # ---------------------------------------------------------------------------------------------------------------------
 # AWS ECS Task Definition Variables
 # ---------------------------------------------------------------------------------------------------------------------
-variable "placement_constraints" {
+variable "placement_constraints_task_definition" {
   description = "(Optional) A set of placement constraints rules that are taken into consideration during task placement. Maximum number of placement_constraints is 10. This is a list of maps, where each map should contain \"type\" and \"expression\""
   type        = list
   default     = []
