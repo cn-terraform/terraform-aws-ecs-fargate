@@ -157,4 +157,17 @@ module "ecs-fargate-service" {
   private_subnets  = var.private_subnets_ids
   security_groups  = var.ecs_service_security_groups
   assign_public_ip = var.assign_public_ip
+
+  # ECS Service Load Balancer block
+  container_name = var.container_name
+
+  # ECS Autoscaling
+  ecs_cluster_name = module.ecs-cluster.aws_ecs_cluster_cluster_name
+
+  lb_arn                  = module.ecs-alb.aws_lb_lb_arn
+  lb_http_tgs_arns        = module.ecs-alb.lb_http_tgs_arns
+  lb_https_tgs_arns       = module.ecs-alb.lb_https_tgs_arns
+  lb_http_listeners_arns  = module.ecs-alb.lb_http_listeners_arns
+  lb_https_listeners_arns = module.ecs-alb.lb_https_listeners_arns
+  load_balancer_sg_id     = module.ecs-alb.aws_security_group_lb_access_sg_id
 }
