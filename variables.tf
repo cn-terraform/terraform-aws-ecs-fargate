@@ -22,10 +22,6 @@ variable "region" {
 variable "vpc_id" {
   description = "ID of the VPC"
 }
-# variable "availability_zones" {
-#   type        = list
-#   description = "List of Availability Zones"
-# }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # AWS ECS Container Definition Variables
