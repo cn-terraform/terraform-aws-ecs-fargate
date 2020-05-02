@@ -59,7 +59,15 @@ module "td" {
   healthcheck                  = var.healthcheck
   links                        = var.links
   linux_parameters             = var.linux_parameters
-  log_configuration            = var.log_configuration
+  log_configuration = {
+    logDriver = "awslogs"
+    options = {
+      "awslogs-region"        = var.region
+      "awslogs-group"         = module.aws_cw_logs.logs_path
+      "awslogs-stream-prefix" = "ecs"
+    }
+    secretOptions = null
+  }
   mount_points                 = var.mount_points
   port_mappings                = var.port_mappings
   readonly_root_filesystem     = var.readonly_root_filesystem
@@ -82,7 +90,7 @@ module "td" {
 # ---------------------------------------------------------------------------------------------------------------------
 module "ecs-alb" {
   source  = "cn-terraform/ecs-alb/aws"
-  version = "0.0.7"
+  version = "0.0.8"
   # source  = "../terraform-aws-ecs-alb"
 
   name_preffix = "${var.name_preffix}"

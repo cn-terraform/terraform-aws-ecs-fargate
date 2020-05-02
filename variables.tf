@@ -17,46 +17,15 @@ variable "region" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# Locals
-# ---------------------------------------------------------------------------------------------------------------------
-
-# locals {
-#   log_driver = "awslogs"
-#   log_options = {
-#     "awslogs-region"        = var.region
-#     "awslogs-group"         = "/ecs/service/${var.name_preffix}"
-#     "awslogs-stream-prefix" = "ecs"
-#   }
-# }
-
-# locals {
-#   port_mappings = [
-#     {
-#       "containerPort" = var.container_port
-#       "hostPort"      = var.container_port
-#       "protocol"      = "HTTP"
-#     },
-#   ]
-# }
-
-# ---------------------------------------------------------------------------------------------------------------------
 # AWS Networking
 # ---------------------------------------------------------------------------------------------------------------------
 variable "vpc_id" {
   description = "ID of the VPC"
 }
-variable "availability_zones" {
-  type        = list
-  description = "List of Availability Zones"
-}
-variable "public_subnets_ids" {
-  type        = list
-  description = "List of Public Subnets IDs"
-}
-variable "private_subnets_ids" {
-  type        = list
-  description = "List of Private Subnets IDs"
-}
+# variable "availability_zones" {
+#   type        = list
+#   description = "List of Availability Zones"
+# }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # AWS ECS Container Definition Variables
@@ -188,20 +157,6 @@ variable "linux_parameters" {
     }))
   })
 
-  default = null
-}
-
-# https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_LogConfiguration.html
-variable "log_configuration" {
-  description = "(Optional) Log configuration options to send to a custom log driver for the container. For more details, see https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_LogConfiguration.html"
-  type = object({
-    logDriver = string
-    options   = map(string)
-    secretOptions = list(object({
-      name      = string
-      valueFrom = string
-    }))
-  })
   default = null
 }
 
@@ -574,19 +529,15 @@ variable "service_registries" {
   default     = {}
 }
 
-variable "task_definition_arn" {
-  description = "(Required) The full ARN of the task definition that you want to run in your service."
-}
-
 # ---------------------------------------------------------------------------------------------------------------------
 # AWS ECS SERVICE network_configuration BLOCK
 # ---------------------------------------------------------------------------------------------------------------------
-variable "public_subnets" {
+variable "public_subnets_ids" {
   description = "The public subnets associated with the task or service."
   type        = list
 }
 
-variable "private_subnets" {
+variable "private_subnets_ids" {
   description = "The private subnets associated with the task or service."
   type        = list
 }
