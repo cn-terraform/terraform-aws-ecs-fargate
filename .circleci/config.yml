@@ -5,5 +5,9 @@ jobs:
       - image: hashicorp/terraform
     steps:
       - checkout
-      - run: terraform init
-      - run: terraform validate
+      - run:
+          working_directory: examples/test
+          command: terraform init
+      - run:
+          working_directory: examples/test
+          command: terraform validate
