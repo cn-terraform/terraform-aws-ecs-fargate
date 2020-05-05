@@ -7,19 +7,6 @@ provider "aws" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# AWS Cloudwatch Logs
-# ---------------------------------------------------------------------------------------------------------------------
-module aws_cw_logs {
-  source  = "cn-terraform/cloudwatch-logs/aws"
-  version = "1.0.5"
-  # source  = "../terraform-aws-cloudwatch-logs"
-
-  logs_path = "/ecs/service/${var.name_preffix}"
-  profile   = var.profile
-  region    = var.region
-}
-
-# ---------------------------------------------------------------------------------------------------------------------
 # ECS Cluster
 # ---------------------------------------------------------------------------------------------------------------------
 module ecs-cluster {
@@ -59,15 +46,7 @@ module "td" {
   healthcheck                  = var.healthcheck
   links                        = var.links
   linux_parameters             = var.linux_parameters
-  log_configuration = {
-    logDriver = "awslogs"
-    options = {
-      "awslogs-region"        = var.region
-      "awslogs-group"         = module.aws_cw_logs.logs_path
-      "awslogs-stream-prefix" = "ecs"
-    }
-    secretOptions = null
-  }
+  log_configuration            = var.log_configuration
   mount_points                 = var.mount_points
   port_mappings                = var.port_mappings
   readonly_root_filesystem     = var.readonly_root_filesystem

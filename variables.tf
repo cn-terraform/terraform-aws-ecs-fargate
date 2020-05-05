@@ -156,6 +156,20 @@ variable "linux_parameters" {
   default = null
 }
 
+# https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_LogConfiguration.html
+variable "log_configuration" {
+  description = "(Optional) Log configuration options to send to a custom log driver for the container. For more details, see https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_LogConfiguration.html"
+  type = object({
+    logDriver = string
+    options   = map(string)
+    secretOptions = list(object({
+      name      = string
+      valueFrom = string
+    }))
+  })
+  default = null
+}
+
 variable "mount_points" {
   description = "(Optional) Container mount points. This is a list of maps, where each map should contain a `containerPath` and `sourceVolume`"
   type = list(object({
