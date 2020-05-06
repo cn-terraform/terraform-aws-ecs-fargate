@@ -1,6 +1,6 @@
-# ---------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 # ECS CLUSTER
-# ---------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 output "aws_ecs_cluster_cluster_name" {
   description = "The name of the cluster"
   value       = module.ecs-cluster.aws_ecs_cluster_cluster_name
@@ -16,9 +16,9 @@ output "aws_ecs_cluster_cluster_arn" {
   value       = module.ecs-cluster.aws_ecs_cluster_cluster_arn
 }
 
-# ---------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 # AWS ECS Task Execution Role
-# ---------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 output "aws_iam_role_ecs_task_execution_role_arn" {
   description = "The Amazon Resource Name (ARN) specifying the role."
   value       = module.td.aws_iam_role_ecs_task_execution_role_arn
@@ -44,9 +44,9 @@ output "aws_iam_role_ecs_task_execution_role_unique_id" {
   value       = module.td.aws_iam_role_ecs_task_execution_role_unique_id
 }
 
-# ---------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 # ECS Task Definition
-# ---------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 output "aws_ecs_task_definition_td_arn" {
   description = "Full ARN of the Task Definition (including both family and revision)."
   value       = module.td.aws_ecs_task_definition_td_arn
@@ -66,9 +66,9 @@ output "container_name" {
   value       = var.container_name
 }
 
-# ---------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 # APPLICATION LOAD BALANCER
-# ---------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 output "aws_lb_lb_id" {
   description = "The ARN of the load balancer (matches arn)."
   value       = module.ecs-alb.aws_lb_lb_id
@@ -94,9 +94,9 @@ output "aws_lb_lb_zone_id" {
   value       = module.ecs-alb.aws_lb_lb_zone_id
 }
 
-# ---------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 # ACCESS CONTROL TO APPLICATION LOAD BALANCER
-# ---------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 output "aws_security_group_lb_access_sg_id" {
   description = "The ID of the security group"
   value       = module.ecs-alb.aws_security_group_lb_access_sg_id
@@ -137,9 +137,9 @@ output "aws_security_group_lb_access_sg_egress" {
   value       = module.ecs-alb.aws_security_group_lb_access_sg_egress
 }
 
-# ---------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 # AWS LOAD BALANCER - Target Groups
-# ---------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 output "lb_http_tgs_ids" {
   description = "List of HTTP Target Groups IDs"
   value       = module.ecs-alb.lb_http_tgs_ids
@@ -170,9 +170,9 @@ output "lb_https_tgs_names" {
   value       = module.ecs-alb.lb_https_tgs_names
 }
 
-# ---------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 # AWS LOAD BALANCER - Listeners
-# ---------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 output "lb_http_listeners_ids" {
   description = "List of HTTP Listeners IDs"
   value       = module.ecs-alb.lb_http_listeners_ids
@@ -193,9 +193,9 @@ output "lb_https_listeners_arns" {
   value       = module.ecs-alb.lb_https_listeners_arns
 }
 
-# ---------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 # AWS ECS SERVICE
-# ---------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 output "aws_ecs_service_service_id" {
   description = "The Amazon Resource Name (ARN) that identifies the service."
   value       = module.ecs-fargate-service.aws_ecs_service_service_id
@@ -216,9 +216,9 @@ output "aws_ecs_service_service_desired_count" {
   value       = module.ecs-fargate-service.aws_ecs_service_service_desired_count
 }
 
-# ---------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 # AWS SECURITY GROUPS
-# ---------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 output "ecs_tasks_sg_id" {
   description = "$${var.name_preffix} ECS Tasks Security Group - The ID of the security group"
   value       = module.ecs-fargate-service.ecs_tasks_sg_id
