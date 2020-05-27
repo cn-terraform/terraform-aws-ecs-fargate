@@ -104,7 +104,7 @@ module "ecs-alb" {
 #------------------------------------------------------------------------------
 module "ecs-fargate-service" {
   source  = "cn-terraform/ecs-fargate-service/aws"
-  version = "2.0.3"
+  version = "2.0.4"
   # source  = "../terraform-aws-ecs-fargate-service"
 
   name_preffix = var.name_preffix
