@@ -57,7 +57,7 @@ module "td" {
 #------------------------------------------------------------------------------
 module "ecs-alb" {
   source  = "cn-terraform/ecs-alb/aws"
-  version = "1.0.1"
+  version = "1.0.2"
   # source  = "../terraform-aws-ecs-alb"
 
   name_preffix = "${var.name_preffix}"
