@@ -2,14 +2,14 @@ version: 2
 jobs:
   check-format:
     docker:
-      - image: hashicorp/terraform
+      - image: hashicorp/terraform:0.12.29
     steps:
       - checkout
       - run:
           command: terraform fmt -check -recursive -diff
   validate:
     docker:
-      - image: hashicorp/terraform
+      - image: hashicorp/terraform:0.12.29
     steps:
       - checkout
       - run:
