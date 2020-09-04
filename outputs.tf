@@ -220,21 +220,21 @@ output "aws_ecs_service_service_desired_count" {
 # AWS SECURITY GROUPS
 #------------------------------------------------------------------------------
 output "ecs_tasks_sg_id" {
-  description = "$${var.name_preffix} ECS Tasks Security Group - The ID of the security group"
+  description = "$${var.name_prefix} ECS Tasks Security Group - The ID of the security group"
   value       = module.ecs-fargate-service.ecs_tasks_sg_id
 }
 
 output "ecs_tasks_sg_arn" {
-  description = "$${var.name_preffix} ECS Tasks Security Group - The ARN of the security group"
+  description = "$${var.name_prefix} ECS Tasks Security Group - The ARN of the security group"
   value       = module.ecs-fargate-service.ecs_tasks_sg_arn
 }
 
 output "ecs_tasks_sg_name" {
-  description = "$${var.name_preffix} ECS Tasks Security Group - The name of the security group"
+  description = "$${var.name_prefix} ECS Tasks Security Group - The name of the security group"
   value       = module.ecs-fargate-service.ecs_tasks_sg_name
 }
 
 output "ecs_tasks_sg_description" {
-  description = "$${var.name_preffix} ECS Tasks Security Group - The description of the security group"
+  description = "$${var.name_prefix} ECS Tasks Security Group - The description of the security group"
   value       = module.ecs-fargate-service.ecs_tasks_sg_description
 }

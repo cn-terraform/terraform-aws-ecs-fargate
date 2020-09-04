@@ -3,10 +3,10 @@
 #------------------------------------------------------------------------------
 module ecs-cluster {
   source  = "cn-terraform/ecs-cluster/aws"
-  version = "1.0.5"
+  version = "1.0.6"
   # source  = "../terraform-aws-ecs-cluster"
 
-  name = "${var.name_preffix}"
+  name = "${var.name_prefix}"
 }
 
 #------------------------------------------------------------------------------
@@ -14,10 +14,10 @@ module ecs-cluster {
 #------------------------------------------------------------------------------
 module "td" {
   source  = "cn-terraform/ecs-fargate-task-definition/aws"
-  version = "1.0.11"
+  version = "1.0.15"
   # source  = "../terraform-aws-ecs-fargate-task-definition"
 
-  name_preffix                 = var.name_preffix
+  name_prefix                  = var.name_prefix
   container_image              = var.container_image
   container_name               = var.container_name
   command                      = var.command
@@ -57,11 +57,11 @@ module "td" {
 #------------------------------------------------------------------------------
 module "ecs-alb" {
   source  = "cn-terraform/ecs-alb/aws"
-  version = "1.0.2"
+  version = "1.0.5"
   # source  = "../terraform-aws-ecs-alb"
 
-  name_preffix = "${var.name_preffix}"
-  vpc_id       = var.vpc_id
+  name_prefix = "${var.name_prefix}"
+  vpc_id      = var.vpc_id
 
   # Application Load Balancer
   internal                         = var.lb_internal
@@ -104,11 +104,11 @@ module "ecs-alb" {
 #------------------------------------------------------------------------------
 module "ecs-fargate-service" {
   source  = "cn-terraform/ecs-fargate-service/aws"
-  version = "2.0.4"
+  version = "2.0.7"
   # source  = "../terraform-aws-ecs-fargate-service"
 
-  name_preffix = var.name_preffix
-  vpc_id       = var.vpc_id
+  name_prefix = var.name_prefix
+  vpc_id      = var.vpc_id
 
   ecs_cluster_arn                    = module.ecs-cluster.aws_ecs_cluster_cluster_arn
   deployment_maximum_percent         = var.deployment_maximum_percent

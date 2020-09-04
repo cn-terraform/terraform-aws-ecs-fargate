@@ -1,8 +1,8 @@
 #------------------------------------------------------------------------------
 # Misc
 #------------------------------------------------------------------------------
-variable "name_preffix" {
-  description = "Name preffix for resources on AWS"
+variable "name_prefix" {
+  description = "Name prefix for resources on AWS"
 }
 
 variable "enable_module" {
