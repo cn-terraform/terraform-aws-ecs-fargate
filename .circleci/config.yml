@@ -1,15 +1,29 @@
 version: 2
 jobs:
-  build:
+  check-format:
     docker:
       - image: hashicorp/terraform
     steps:
       - checkout
       - run:
           command: terraform fmt -check -recursive -diff
+  validate:
+    docker:
+      - image: hashicorp/terraform
+    steps:
+      - checkout
       - run:
           working_directory: examples/test
           command: terraform init
       - run:
           working_directory: examples/test
           command: terraform validate
+
+workflows:
+  version: 2
+  pipeline:
+    jobs:
+      - check-format
+      - validate:
+          requires:
+            - check-format
