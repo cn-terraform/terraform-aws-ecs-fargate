@@ -5,6 +5,12 @@ variable "name_preffix" {
   description = "Name preffix for resources on AWS"
 }
 
+variable "enable_module" {
+  description = "(Optional) Boolean variable to enable or disable the whole module. Defaults to true."
+  type        = bool
+  default     = true
+}
+
 #------------------------------------------------------------------------------
 # AWS Networking
 #------------------------------------------------------------------------------
