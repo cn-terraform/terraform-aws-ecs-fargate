@@ -57,7 +57,7 @@ module "td" {
 #------------------------------------------------------------------------------
 module "ecs-alb" {
   source  = "cn-terraform/ecs-alb/aws"
-  version = "1.0.5"
+  version = "1.0.6"
   # source  = "../terraform-aws-ecs-alb"
 
   name_prefix = "${var.name_prefix}"
@@ -104,7 +104,7 @@ module "ecs-alb" {
 #------------------------------------------------------------------------------
 module "ecs-fargate-service" {
   source  = "cn-terraform/ecs-fargate-service/aws"
-  version = "2.0.8"
+  version = "2.0.9"
   # source  = "../terraform-aws-ecs-fargate-service"
 
   name_prefix = var.name_prefix
@@ -138,6 +138,8 @@ module "ecs-fargate-service" {
   lb_arn                  = module.ecs-alb.aws_lb_lb_arn
   lb_http_tgs_arns        = module.ecs-alb.lb_http_tgs_arns
   lb_https_tgs_arns       = module.ecs-alb.lb_https_tgs_arns
+  lb_http_tgs_ports       = module.ecs-alb.lb_http_tgs_ports
+  lb_https_tgs_ports      = module.ecs-alb.lb_https_tgs_ports
   lb_http_listeners_arns  = module.ecs-alb.lb_http_listeners_arns
   lb_https_listeners_arns = module.ecs-alb.lb_https_listeners_arns
   load_balancer_sg_id     = module.ecs-alb.aws_security_group_lb_access_sg_id
