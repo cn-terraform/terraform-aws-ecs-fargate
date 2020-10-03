@@ -171,7 +171,7 @@ variable "mount_points" {
     containerPath = string
     sourceVolume  = string
   }))
-  default = null
+  default = []
 }
 
 variable "port_mappings" {
