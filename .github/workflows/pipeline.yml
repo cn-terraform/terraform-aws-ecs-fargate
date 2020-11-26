@@ -21,3 +21,16 @@ jobs:
       - name: Terraform Validate
         run: terraform validate
         working-directory: examples/test
+
+  mock-plan:
+    runs-on: ubuntu-latest
+    container: hashicorp/terraform
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Terraform Init
+        run: terraform init
+        working-directory: examples/test
+      - name: Terraform Plan (Mock)
+        run: terraform plan
+        working-directory: examples/test

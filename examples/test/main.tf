@@ -1,7 +1,3 @@
-provider "aws" {
-  region = "us-east-1"
-}
-
 module "base-network" {
   source                                      = "cn-terraform/networking/aws"
   version                                     = "2.0.10"
