@@ -53,58 +53,11 @@ module "td" {
 }
 
 #------------------------------------------------------------------------------
-# AWS LOAD BALANCER
-#------------------------------------------------------------------------------
-module "ecs-alb" {
-  source  = "cn-terraform/ecs-alb/aws"
-  version = "1.0.6"
-  # source  = "../terraform-aws-ecs-alb"
-
-  name_prefix = "${var.name_prefix}"
-  vpc_id      = var.vpc_id
-
-  # Application Load Balancer
-  internal                         = var.lb_internal
-  security_groups                  = var.lb_security_groups
-  drop_invalid_header_fields       = var.lb_drop_invalid_header_fields
-  private_subnets                  = var.private_subnets_ids
-  public_subnets                   = var.public_subnets_ids
-  idle_timeout                     = var.lb_idle_timeout
-  enable_deletion_protection       = var.lb_enable_deletion_protection
-  enable_cross_zone_load_balancing = var.lb_enable_cross_zone_load_balancing
-  enable_http2                     = var.lb_enable_http2
-  ip_address_type                  = var.lb_ip_address_type
-
-  # Access Control to Application Load Balancer
-  enable_http                   = var.lb_enable_http
-  http_ports                    = var.lb_http_ports
-  http_ingress_cidr_blocks      = var.lb_http_ingress_cidr_blocks
-  http_ingress_prefix_list_ids  = var.lb_http_ingress_prefix_list_ids
-  enable_https                  = var.lb_enable_https
-  https_ports                   = var.lb_https_ports
-  https_ingress_cidr_blocks     = var.lb_https_ingress_cidr_blocks
-  https_ingress_prefix_list_ids = var.lb_https_ingress_prefix_list_ids
-
-  # Target Groups
-  deregistration_delay                          = var.lb_deregistration_delay
-  slow_start                                    = var.lb_slow_start
-  load_balancing_algorithm_type                 = var.lb_load_balancing_algorithm_type
-  stickiness                                    = var.lb_stickiness
-  target_group_health_check_enabled             = var.lb_target_group_health_check_enabled
-  target_group_health_check_interval            = var.lb_target_group_health_check_interval
-  target_group_health_check_path                = var.lb_target_group_health_check_path
-  target_group_health_check_timeout             = var.lb_target_group_health_check_timeout
-  target_group_health_check_healthy_threshold   = var.lb_target_group_health_check_healthy_threshold
-  target_group_health_check_unhealthy_threshold = var.lb_target_group_health_check_unhealthy_threshold
-  target_group_health_check_matcher             = var.lb_target_group_health_check_matcher
-}
-
-#------------------------------------------------------------------------------
 # ECS Service
 #------------------------------------------------------------------------------
 module "ecs-fargate-service" {
   source  = "cn-terraform/ecs-fargate-service/aws"
-  version = "2.0.9"
+  version = "2.0.10"
   # source  = "../terraform-aws-ecs-fargate-service"
 
   name_prefix = var.name_prefix
@@ -135,12 +88,34 @@ module "ecs-fargate-service" {
   # ECS Autoscaling
   ecs_cluster_name = module.ecs-cluster.aws_ecs_cluster_cluster_name
 
-  lb_arn                  = module.ecs-alb.aws_lb_lb_arn
-  lb_http_tgs_arns        = module.ecs-alb.lb_http_tgs_arns
-  lb_https_tgs_arns       = module.ecs-alb.lb_https_tgs_arns
-  lb_http_tgs_ports       = module.ecs-alb.lb_http_tgs_ports
-  lb_https_tgs_ports      = module.ecs-alb.lb_https_tgs_ports
-  lb_http_listeners_arns  = module.ecs-alb.lb_http_listeners_arns
-  lb_https_listeners_arns = module.ecs-alb.lb_https_listeners_arns
-  load_balancer_sg_id     = module.ecs-alb.aws_security_group_lb_access_sg_id
+  # Application Load Balancer
+  lb_internal                         = var.lb_internal
+  lb_security_groups                  = var.lb_security_groups
+  lb_drop_invalid_header_fields       = var.lb_drop_invalid_header_fields
+  lb_idle_timeout                     = var.lb_idle_timeout
+  lb_enable_deletion_protection       = var.lb_enable_deletion_protection
+  lb_enable_cross_zone_load_balancing = var.lb_enable_cross_zone_load_balancing
+  lb_enable_http2                     = var.lb_enable_http2
+  lb_ip_address_type                  = var.lb_ip_address_type
+
+  # Access Control to Application Load Balancer
+  lb_http_ports                    = var.lb_http_ports
+  lb_http_ingress_cidr_blocks      = var.lb_http_ingress_cidr_blocks
+  lb_http_ingress_prefix_list_ids  = var.lb_http_ingress_prefix_list_ids
+  lb_https_ports                   = var.lb_https_ports
+  lb_https_ingress_cidr_blocks     = var.lb_https_ingress_cidr_blocks
+  lb_https_ingress_prefix_list_ids = var.lb_https_ingress_prefix_list_ids
+
+  # Target Groups
+  lb_deregistration_delay                          = var.lb_deregistration_delay
+  lb_slow_start                                    = var.lb_slow_start
+  lb_load_balancing_algorithm_type                 = var.lb_load_balancing_algorithm_type
+  lb_stickiness                                    = var.lb_stickiness
+  lb_target_group_health_check_enabled             = var.lb_target_group_health_check_enabled
+  lb_target_group_health_check_interval            = var.lb_target_group_health_check_interval
+  lb_target_group_health_check_path                = var.lb_target_group_health_check_path
+  lb_target_group_health_check_timeout             = var.lb_target_group_health_check_timeout
+  lb_target_group_health_check_healthy_threshold   = var.lb_target_group_health_check_healthy_threshold
+  lb_target_group_health_check_unhealthy_threshold = var.lb_target_group_health_check_unhealthy_threshold
+  lb_target_group_health_check_matcher             = var.lb_target_group_health_check_matcher
 }

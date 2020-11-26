@@ -295,6 +295,92 @@ variable "volumes" {
 }
 
 #------------------------------------------------------------------------------
+# AWS ECS SERVICE
+#------------------------------------------------------------------------------
+variable "deployment_maximum_percent" {
+  description = "(Optional) The upper limit (as a percentage of the service's desiredCount) of the number of running tasks that can be running in a service during a deployment."
+  type        = number
+  default     = 200
+}
+
+variable "deployment_minimum_healthy_percent" {
+  description = "(Optional) The lower limit (as a percentage of the service's desiredCount) of the number of running tasks that must remain running and healthy in a service during a deployment."
+  type        = number
+  default     = 100
+}
+
+variable "desired_count" {
+  description = "(Optional) The number of instances of the task definition to place and keep running. Defaults to 0."
+  type        = number
+  default     = 1
+}
+
+variable "enable_ecs_managed_tags" {
+  description = "(Optional) Specifies whether to enable Amazon ECS managed tags for the tasks within the service."
+  type        = bool
+  default     = false
+}
+
+variable "health_check_grace_period_seconds" {
+  description = "(Optional) Seconds to ignore failing load balancer health checks on newly instantiated tasks to prevent premature shutdown, up to 2147483647. Only valid for services configured to use load balancers."
+  type        = number
+  default     = 0
+}
+
+variable "ordered_placement_strategy" {
+  description = "(Optional) Service level strategy rules that are taken into consideration during task placement. List from top to bottom in order of precedence. The maximum number of ordered_placement_strategy blocks is 5. This is a list of maps where each map should contain \"id\" and \"field\""
+  type        = list
+  default     = []
+}
+
+variable "ecs_service_placement_constraints" {
+  type        = list
+  description = "(Optional) rules that are taken into consideration during task placement. Maximum number of placement_constraints is 10. This is a list of maps, where each map should contain \"type\" and \"expression\""
+  default     = []
+}
+
+variable "platform_version" {
+  description = "(Optional) The platform version on which to run your service. Defaults to 1.4.0. More information about Fargate platform versions can be found in the AWS ECS User Guide."
+  default     = "1.4.0"
+}
+
+variable "propagate_tags" {
+  description = "(Optional) Specifies whether to propagate the tags from the task definition or the service to the tasks. The valid values are SERVICE and TASK_DEFINITION. Default to SERVICE"
+  default     = "SERVICE"
+}
+
+variable "service_registries" {
+  description = "(Optional) The service discovery registries for the service. The maximum number of service_registries blocks is 1. This is a map that should contain the following fields \"registry_arn\", \"port\", \"container_port\" and \"container_name\""
+  type        = map
+  default     = {}
+}
+
+#------------------------------------------------------------------------------
+# AWS ECS SERVICE network_configuration BLOCK
+#------------------------------------------------------------------------------
+variable "public_subnets_ids" {
+  description = "The public subnets associated with the task or service."
+  type        = list
+}
+
+variable "private_subnets_ids" {
+  description = "The private subnets associated with the task or service."
+  type        = list
+}
+
+variable "ecs_service_security_groups" {
+  description = "(Optional) The security groups associated with the task or service. If you do not specify a security group, the default security group for the VPC is used."
+  type        = list
+  default     = []
+}
+
+variable "assign_public_ip" {
+  description = "(Optional) Assign a public IP address to the ENI (Fargate launch type only). If true service will be associated with public subnets. Default false. "
+  type        = bool
+  default     = false
+}
+
+#------------------------------------------------------------------------------
 # APPLICATION LOAD BALANCER
 #------------------------------------------------------------------------------
 variable "lb_internal" {
@@ -348,16 +434,15 @@ variable "lb_ip_address_type" {
 #------------------------------------------------------------------------------
 # ACCESS CONTROL TO APPLICATION LOAD BALANCER
 #------------------------------------------------------------------------------
-variable "lb_enable_http" {
-  description = "Enable HTTP Listeners for ports on the variable http_ports. Defaults to true"
-  type        = bool
-  default     = true
-}
-
 variable "lb_http_ports" {
-  description = "The list of ports with access to the Load Balancer through HTTP listeners"
-  type        = list(number)
-  default     = [80]
+  description = "Map containing objects with two fields, listener_port and the target_group_port to redirect HTTP requests"
+  type        = map
+  default = {
+    default_http = {
+      listener_port     = 80
+      target_group_port = 80
+    }
+  }
 }
 
 variable "lb_http_ingress_cidr_blocks" {
@@ -372,16 +457,15 @@ variable "lb_http_ingress_prefix_list_ids" {
   default     = []
 }
 
-variable "lb_enable_https" {
-  description = "Enable HTTPS Listeners for ports on the variable https_ports. Defaults to true"
-  type        = bool
-  default     = true
-}
-
 variable "lb_https_ports" {
-  description = "The list of ports with access to the Load Balancer through HTTPS listeners"
-  type        = list(number)
-  default     = [443]
+  description = "Map containing objects with two fields, listener_port and the target_group_port to redirect HTTPS requests"
+  type        = map
+  default = {
+    default_http = {
+      listener_port     = 443
+      target_group_port = 443
+    }
+  }
 }
 
 variable "lb_https_ingress_cidr_blocks" {
@@ -471,90 +555,4 @@ variable "lb_target_group_health_check_matcher" {
   description = "The HTTP codes to use when checking for a successful response from a target. You can specify multiple values (for example, \"200,202\") or a range of values (for example, \"200-299\"). Default is 200."
   type        = string
   default     = "200"
-}
-
-#------------------------------------------------------------------------------
-# AWS ECS SERVICE
-#------------------------------------------------------------------------------
-variable "deployment_maximum_percent" {
-  description = "(Optional) The upper limit (as a percentage of the service's desiredCount) of the number of running tasks that can be running in a service during a deployment."
-  type        = number
-  default     = 200
-}
-
-variable "deployment_minimum_healthy_percent" {
-  description = "(Optional) The lower limit (as a percentage of the service's desiredCount) of the number of running tasks that must remain running and healthy in a service during a deployment."
-  type        = number
-  default     = 100
-}
-
-variable "desired_count" {
-  description = "(Optional) The number of instances of the task definition to place and keep running. Defaults to 0."
-  type        = number
-  default     = 1
-}
-
-variable "enable_ecs_managed_tags" {
-  description = "(Optional) Specifies whether to enable Amazon ECS managed tags for the tasks within the service."
-  type        = bool
-  default     = false
-}
-
-variable "health_check_grace_period_seconds" {
-  description = "(Optional) Seconds to ignore failing load balancer health checks on newly instantiated tasks to prevent premature shutdown, up to 2147483647. Only valid for services configured to use load balancers."
-  type        = number
-  default     = 0
-}
-
-variable "ordered_placement_strategy" {
-  description = "(Optional) Service level strategy rules that are taken into consideration during task placement. List from top to bottom in order of precedence. The maximum number of ordered_placement_strategy blocks is 5. This is a list of maps where each map should contain \"id\" and \"field\""
-  type        = list
-  default     = []
-}
-
-variable "ecs_service_placement_constraints" {
-  type        = list
-  description = "(Optional) rules that are taken into consideration during task placement. Maximum number of placement_constraints is 10. This is a list of maps, where each map should contain \"type\" and \"expression\""
-  default     = []
-}
-
-variable "platform_version" {
-  description = "(Optional) The platform version on which to run your service. Defaults to 1.4.0. More information about Fargate platform versions can be found in the AWS ECS User Guide."
-  default     = "1.4.0"
-}
-
-variable "propagate_tags" {
-  description = "(Optional) Specifies whether to propagate the tags from the task definition or the service to the tasks. The valid values are SERVICE and TASK_DEFINITION. Default to SERVICE"
-  default     = "SERVICE"
-}
-
-variable "service_registries" {
-  description = "(Optional) The service discovery registries for the service. The maximum number of service_registries blocks is 1. This is a map that should contain the following fields \"registry_arn\", \"port\", \"container_port\" and \"container_name\""
-  type        = map
-  default     = {}
-}
-
-#------------------------------------------------------------------------------
-# AWS ECS SERVICE network_configuration BLOCK
-#------------------------------------------------------------------------------
-variable "public_subnets_ids" {
-  description = "The public subnets associated with the task or service."
-  type        = list
-}
-
-variable "private_subnets_ids" {
-  description = "The private subnets associated with the task or service."
-  type        = list
-}
-
-variable "ecs_service_security_groups" {
-  description = "(Optional) The security groups associated with the task or service. If you do not specify a security group, the default security group for the VPC is used."
-  type        = list
-  default     = []
-}
-
-variable "assign_public_ip" {
-  description = "(Optional) Assign a public IP address to the ENI (Fargate launch type only). If true service will be associated with public subnets. Default false. "
-  type        = bool
-  default     = false
 }
