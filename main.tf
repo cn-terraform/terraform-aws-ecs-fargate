@@ -6,7 +6,7 @@ module ecs-cluster {
   version = "1.0.6"
   # source  = "../terraform-aws-ecs-cluster"
 
-  name = "${var.name_prefix}"
+  name = var.name_prefix
 }
 
 #------------------------------------------------------------------------------
