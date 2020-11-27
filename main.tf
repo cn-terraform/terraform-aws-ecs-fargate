@@ -57,7 +57,7 @@ module "td" {
 #------------------------------------------------------------------------------
 module "ecs-fargate-service" {
   source  = "cn-terraform/ecs-fargate-service/aws"
-  version = "2.0.10"
+  version = "2.0.11"
   # source  = "../terraform-aws-ecs-fargate-service"
 
   name_prefix = var.name_prefix
@@ -86,7 +86,8 @@ module "ecs-fargate-service" {
   container_name = var.container_name
 
   # ECS Autoscaling
-  ecs_cluster_name = module.ecs-cluster.aws_ecs_cluster_cluster_name
+  enable_autoscaling = var.enable_autoscaling
+  ecs_cluster_name   = module.ecs-cluster.aws_ecs_cluster_cluster_name
 
   # Application Load Balancer
   lb_internal                         = var.lb_internal

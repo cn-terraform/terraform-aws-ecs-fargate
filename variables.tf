@@ -355,6 +355,12 @@ variable "service_registries" {
   default     = {}
 }
 
+variable "enable_autoscaling" {
+  description = "(Optional) If true, autoscaling alarms will be created."
+  type        = bool
+  default     = true
+}
+
 #------------------------------------------------------------------------------
 # AWS ECS SERVICE network_configuration BLOCK
 #------------------------------------------------------------------------------
