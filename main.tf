@@ -59,9 +59,9 @@ module "td" {
   pseudo_terminal              = var.pseudo_terminal
   docker_security_options      = var.docker_security_options
 
-  placement_constraints        = var.placement_constraints_task_definition
-  proxy_configuration          = var.proxy_configuration
-  volumes                      = var.volumes
+  placement_constraints = var.placement_constraints_task_definition
+  proxy_configuration   = var.proxy_configuration
+  volumes               = var.volumes
 }
 
 
