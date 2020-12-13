@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 # ECS Cluster
 #------------------------------------------------------------------------------
-module ecs-cluster {
+module "ecs-cluster" {
   source  = "cn-terraform/ecs-cluster/aws"
   version = "1.0.6"
   # source  = "../terraform-aws-ecs-cluster"
@@ -63,11 +63,6 @@ module "td" {
   proxy_configuration   = var.proxy_configuration
   volumes               = var.volumes
 }
-
-
-
-
-
 
 #------------------------------------------------------------------------------
 # ECS Service
@@ -136,4 +131,9 @@ module "ecs-fargate-service" {
   lb_target_group_health_check_healthy_threshold   = var.lb_target_group_health_check_healthy_threshold
   lb_target_group_health_check_unhealthy_threshold = var.lb_target_group_health_check_unhealthy_threshold
   lb_target_group_health_check_matcher             = var.lb_target_group_health_check_matcher
+
+  # Certificates
+  default_certificate_arn                         = var.default_certificate_arn
+  ssl_policy                                      = var.ssl_policy
+  additional_certificates_arn_for_https_listeners = var.additional_certificates_arn_for_https_listeners
 }

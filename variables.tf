@@ -44,7 +44,7 @@ variable "container_memory_reservation" {
 }
 
 variable "container_definition" {
-  type        = map
+  type        = map(any)
   description = "Container definition overrides which allows for extra keys or overriding existing keys."
   default     = {}
 }
@@ -202,7 +202,7 @@ variable "firelens_configuration" {
 }
 
 variable "mount_points" {
-  type = list
+  type = list(any)
 
   description = "Container mount points. This is a list of maps, where each map should contain a `containerPath` and `sourceVolume`. The `readOnly` key is optional."
   default     = []
@@ -331,13 +331,13 @@ variable "docker_security_options" {
 #------------------------------------------------------------------------------
 variable "placement_constraints_task_definition" {
   description = "(Optional) A set of placement constraints rules that are taken into consideration during task placement. Maximum number of placement_constraints is 10. This is a list of maps, where each map should contain \"type\" and \"expression\""
-  type        = list
+  type        = list(any)
   default     = []
 }
 
 variable "proxy_configuration" {
   description = "(Optional) The proxy configuration details for the App Mesh proxy. This is a list of maps, where each map should contain \"container_name\", \"properties\" and \"type\""
-  type        = list
+  type        = list(any)
   default     = []
 }
 
@@ -396,12 +396,12 @@ variable "health_check_grace_period_seconds" {
 
 variable "ordered_placement_strategy" {
   description = "(Optional) Service level strategy rules that are taken into consideration during task placement. List from top to bottom in order of precedence. The maximum number of ordered_placement_strategy blocks is 5. This is a list of maps where each map should contain \"id\" and \"field\""
-  type        = list
+  type        = list(any)
   default     = []
 }
 
 variable "ecs_service_placement_constraints" {
-  type        = list
+  type        = list(any)
   description = "(Optional) rules that are taken into consideration during task placement. Maximum number of placement_constraints is 10. This is a list of maps, where each map should contain \"type\" and \"expression\""
   default     = []
 }
@@ -418,7 +418,7 @@ variable "propagate_tags" {
 
 variable "service_registries" {
   description = "(Optional) The service discovery registries for the service. The maximum number of service_registries blocks is 1. This is a map that should contain the following fields \"registry_arn\", \"port\", \"container_port\" and \"container_name\""
-  type        = map
+  type        = map(any)
   default     = {}
 }
 
@@ -433,17 +433,17 @@ variable "enable_autoscaling" {
 #------------------------------------------------------------------------------
 variable "public_subnets_ids" {
   description = "The public subnets associated with the task or service."
-  type        = list
+  type        = list(any)
 }
 
 variable "private_subnets_ids" {
   description = "The private subnets associated with the task or service."
-  type        = list
+  type        = list(any)
 }
 
 variable "ecs_service_security_groups" {
   description = "(Optional) The security groups associated with the task or service. If you do not specify a security group, the default security group for the VPC is used."
-  type        = list
+  type        = list(any)
   default     = []
 }
 
@@ -509,7 +509,7 @@ variable "lb_ip_address_type" {
 #------------------------------------------------------------------------------
 variable "lb_http_ports" {
   description = "Map containing objects with two fields, listener_port and the target_group_port to redirect HTTP requests"
-  type        = map
+  type        = map(any)
   default = {
     default_http = {
       listener_port     = 80
@@ -532,7 +532,7 @@ variable "lb_http_ingress_prefix_list_ids" {
 
 variable "lb_https_ports" {
   description = "Map containing objects with two fields, listener_port and the target_group_port to redirect HTTPS requests"
-  type        = map
+  type        = map(any)
   default = {
     default_http = {
       listener_port     = 443
@@ -628,4 +628,25 @@ variable "lb_target_group_health_check_matcher" {
   description = "The HTTP codes to use when checking for a successful response from a target. You can specify multiple values (for example, \"200,202\") or a range of values (for example, \"200-299\"). Default is 200."
   type        = string
   default     = "200"
+}
+
+#------------------------------------------------------------------------------
+# AWS LOAD BALANCER - Target Groups
+#------------------------------------------------------------------------------
+variable "ssl_policy" {
+  description = "(Optional) The name of the SSL Policy for the listener. . Required if var.https_ports is set."
+  type        = string
+  default     = null
+}
+
+variable "default_certificate_arn" {
+  description = "(Optional) The ARN of the default SSL server certificate. Required if var.https_ports is set."
+  type        = string
+  default     = null
+}
+
+variable "additional_certificates_arn_for_https_listeners" {
+  description = "(Optional) List of SSL server certificate ARNs for HTTPS listener. Use it if you need to set additional certificates besides default_certificate_arn"
+  type        = list(any)
+  default     = []
 }
