@@ -329,6 +329,12 @@ variable "docker_security_options" {
 #------------------------------------------------------------------------------
 # AWS ECS Task Definition Variables
 #------------------------------------------------------------------------------
+variable "permissions_boundary" {
+  description = "(Optional) The ARN of the policy that is used to set the permissions boundary for the `ecs_task_execution_role` role."
+  type        = string
+  default     = null
+}
+
 variable "placement_constraints_task_definition" {
   description = "(Optional) A set of placement constraints rules that are taken into consideration during task placement. Maximum number of placement_constraints is 10. This is a list of maps, where each map should contain \"type\" and \"expression\""
   type        = list(any)
