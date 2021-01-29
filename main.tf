@@ -13,9 +13,9 @@ module "ecs-cluster" {
 # ECS Task Definition
 #------------------------------------------------------------------------------
 module "td" {
-  //  source  = "cn-terraform/ecs-fargate-task-definition/aws"
-  //  version = "1.0.18"
-  source = "../terraform-aws-ecs-fargate-task-definition"
+  source  = "cn-terraform/ecs-fargate-task-definition/aws"
+  version = "1.0.19"
+  # source = "../terraform-aws-ecs-fargate-task-definition"
 
   name_prefix                  = var.name_prefix
   container_name               = var.container_name
