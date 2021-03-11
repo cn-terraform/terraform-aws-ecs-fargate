@@ -94,13 +94,13 @@ variable "essential" {
 variable "entrypoint" {
   type        = list(string)
   description = "The entry point that is passed to the container"
-  default     = null
+  default     = []
 }
 
 variable "command" {
   type        = list(string)
   description = "The command that is passed to the container"
-  default     = null
+  default     = []
 }
 
 variable "working_directory" {
@@ -124,7 +124,7 @@ variable "extra_hosts" {
     hostname  = string
   }))
   description = "A list of hostnames and IP address mappings to append to the /etc/hosts file on the container. This is a list of maps"
-  default     = null
+  default     = []
 }
 
 variable "map_environment" {
@@ -140,7 +140,7 @@ variable "environment_files" {
     type  = string
   }))
   description = "One or more files containing the environment variables to pass to the container. This maps to the --env-file option to docker run. The file must be hosted in Amazon S3. This option is only available to tasks using the EC2 launch type. This is a list of maps"
-  default     = null
+  default     = []
 }
 
 variable "secrets" {
@@ -149,7 +149,7 @@ variable "secrets" {
     valueFrom = string
   }))
   description = "The secrets to pass to the container. This is a list of maps"
-  default     = null
+  default     = []
 }
 
 variable "readonly_root_filesystem" {
@@ -211,13 +211,13 @@ variable "mount_points" {
 variable "dns_servers" {
   type        = list(string)
   description = "Container DNS servers. This is a list of strings specifying the IP addresses of the DNS servers"
-  default     = null
+  default     = []
 }
 
 variable "dns_search_domains" {
   type        = list(string)
   description = "Container DNS search domains. A list of DNS search domains that are presented to the container"
-  default     = null
+  default     = []
 }
 
 variable "ulimits" {
@@ -227,7 +227,7 @@ variable "ulimits" {
     softLimit = number
   }))
   description = "Container ulimit settings. This is a list of maps, where each map should contain \"name\", \"hardLimit\" and \"softLimit\""
-  default     = null
+  default     = []
 }
 
 variable "repository_credentials" {
@@ -248,7 +248,7 @@ variable "volumes_from" {
 variable "links" {
   type        = list(string)
   description = "List of container names this container can communicate with without port mappings"
-  default     = null
+  default     = []
 }
 
 variable "user" {
@@ -263,7 +263,7 @@ variable "container_depends_on" {
     condition     = string
   }))
   description = "The dependencies defined for container startup and shutdown. A container can contain multiple dependencies. When a dependency is defined for container startup, for container shutdown it is reversed. The condition can be one of START, COMPLETE, SUCCESS or HEALTHY"
-  default     = null
+  default     = []
 }
 
 variable "docker_labels" {
@@ -293,7 +293,7 @@ variable "privileged" {
 variable "system_controls" {
   type        = list(map(string))
   description = "A list of namespaced kernel parameters to set in the container, mapping to the --sysctl option to docker run. This is a list of maps: { namespace = \"\", value = \"\"}"
-  default     = null
+  default     = []
 }
 
 variable "hostname" {
@@ -323,7 +323,7 @@ variable "pseudo_terminal" {
 variable "docker_security_options" {
   type        = list(string)
   description = "A list of strings to provide custom labels for SELinux and AppArmor multi-level security systems."
-  default     = null
+  default     = []
 }
 
 #------------------------------------------------------------------------------
@@ -333,6 +333,12 @@ variable "permissions_boundary" {
   description = "(Optional) The ARN of the policy that is used to set the permissions boundary for the `ecs_task_execution_role` role."
   type        = string
   default     = null
+}
+
+variable "ecs_task_execution_role_custom_policies" {
+  description = "(Optional) Custom policies to attach to the ECS task execution role. For example for reading secrets from AWS Systems Manager Parameter Store or Secrets Manager"
+  type        = list(string)
+  default     = []
 }
 
 variable "placement_constraints_task_definition" {
