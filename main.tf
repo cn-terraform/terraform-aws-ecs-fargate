@@ -14,7 +14,7 @@ module "ecs-cluster" {
 #------------------------------------------------------------------------------
 module "td" {
   source  = "cn-terraform/ecs-fargate-task-definition/aws"
-  version = "1.0.21"
+  version = "1.0.22"
   # source  = "../terraform-aws-ecs-fargate-task-definition"
 
   name_prefix                  = var.name_prefix
@@ -59,10 +59,11 @@ module "td" {
   pseudo_terminal              = var.pseudo_terminal
   docker_security_options      = var.docker_security_options
 
-  permissions_boundary  = var.permissions_boundary
-  placement_constraints = var.placement_constraints_task_definition
-  proxy_configuration   = var.proxy_configuration
-  volumes               = var.volumes
+  permissions_boundary                    = var.permissions_boundary
+  placement_constraints                   = var.placement_constraints_task_definition
+  proxy_configuration                     = var.proxy_configuration
+  ecs_task_execution_role_custom_policies = var.ecs_task_execution_role_custom_policies
+  volumes                                 = var.volumes
 }
 
 #------------------------------------------------------------------------------
