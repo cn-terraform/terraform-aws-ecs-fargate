@@ -59,10 +59,11 @@ module "td" {
   pseudo_terminal              = var.pseudo_terminal
   docker_security_options      = var.docker_security_options
 
-  permissions_boundary  = var.permissions_boundary
-  placement_constraints = var.placement_constraints_task_definition
-  proxy_configuration   = var.proxy_configuration
-  volumes               = var.volumes
+  permissions_boundary                    = var.permissions_boundary
+  placement_constraints                   = var.placement_constraints_task_definition
+  proxy_configuration                     = var.proxy_configuration
+  ecs_task_execution_role_custom_policies = var.ecs_task_execution_role_custom_policies
+  volumes                                 = var.volumes
 }
 
 #------------------------------------------------------------------------------
