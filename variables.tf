@@ -11,6 +11,12 @@ variable "enable_module" {
   default     = true
 }
 
+variable "tags" {
+  type        = map(string)
+  default     = {}
+  description = "Resource tags"
+}
+
 #------------------------------------------------------------------------------
 # AWS Networking
 #------------------------------------------------------------------------------
