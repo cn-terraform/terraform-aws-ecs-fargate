@@ -7,6 +7,7 @@ module "ecs-cluster" {
   # source  = "../terraform-aws-ecs-cluster"
 
   name = var.name_prefix
+  tags = var.tags
 }
 
 #------------------------------------------------------------------------------
@@ -64,6 +65,8 @@ module "td" {
   proxy_configuration                     = var.proxy_configuration
   ecs_task_execution_role_custom_policies = var.ecs_task_execution_role_custom_policies
   volumes                                 = var.volumes
+
+  tags = var.tags
 }
 
 #------------------------------------------------------------------------------
@@ -138,4 +141,7 @@ module "ecs-fargate-service" {
   default_certificate_arn                         = var.default_certificate_arn
   ssl_policy                                      = var.ssl_policy
   additional_certificates_arn_for_https_listeners = var.additional_certificates_arn_for_https_listeners
+
+  # Optional tags
+  tags = var.tags
 }
