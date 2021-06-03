@@ -3,7 +3,7 @@
 #------------------------------------------------------------------------------
 module "ecs-cluster" {
   source  = "cn-terraform/ecs-cluster/aws"
-  version = "1.0.6"
+  version = "1.0.7"
   # source  = "../terraform-aws-ecs-cluster"
 
   name = var.name_prefix
@@ -14,7 +14,7 @@ module "ecs-cluster" {
 #------------------------------------------------------------------------------
 module "td" {
   source  = "cn-terraform/ecs-fargate-task-definition/aws"
-  version = "1.0.22"
+  version = "1.0.23"
   # source  = "../terraform-aws-ecs-fargate-task-definition"
 
   name_prefix                  = var.name_prefix
@@ -71,7 +71,7 @@ module "td" {
 #------------------------------------------------------------------------------
 module "ecs-fargate-service" {
   source  = "cn-terraform/ecs-fargate-service/aws"
-  version = "2.0.14"
+  version = "2.0.15"
   # source  = "../terraform-aws-ecs-fargate-service"
 
   name_prefix = var.name_prefix
