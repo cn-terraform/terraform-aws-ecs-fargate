@@ -1,4 +1,4 @@
-name: terraform
+name: Terraform
 on: [push]
 jobs:
   check-format:
@@ -34,3 +34,17 @@ jobs:
       - name: Terraform Plan (Mock)
         run: terraform plan
         working-directory: examples/test
+
+  infracost:
+    runs-on: ubuntu-latest
+    name: Show infracost diff
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Run infracost diff
+        uses: infracost/infracost-gh-action@master
+        env:
+          INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          path: examples/test
