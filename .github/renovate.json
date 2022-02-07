@@ -1,12 +1,5 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    ":ignoreUnstable",
-    ":rebaseStalePrs",
-    "workarounds:all",
-    ":semanticPrefixFixDepsChoreOthers",
-    ":autodetectPinVersions",
-    "group:monorepos",
-    "group:recommended"
+    "config:base"
   ]
 }
