@@ -63,6 +63,7 @@ module "td" {
   permissions_boundary                    = var.permissions_boundary
   placement_constraints                   = var.placement_constraints_task_definition
   proxy_configuration                     = var.proxy_configuration
+  ephemeral_storage_size                  = var.ephemeral_storage_size
   ecs_task_execution_role_custom_policies = var.ecs_task_execution_role_custom_policies
   volumes                                 = var.volumes
 
