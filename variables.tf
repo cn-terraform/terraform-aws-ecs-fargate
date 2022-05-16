@@ -359,6 +359,17 @@ variable "proxy_configuration" {
   default     = []
 }
 
+variable "ephemeral_storage_size" {
+  type        = number
+  description = "The number of GBs to provision for ephemeral storage on Fargate tasks. Must be greater than or equal to 21 and less than or equal to 200"
+  default     = 0
+
+  validation {
+    condition     = var.ephemeral_storage_size == 0 || (var.ephemeral_storage_size >= 21 && var.ephemeral_storage_size <= 200)
+    error_message = "The ephemeral_storage_size value must be inclusively between 21 and 200."
+  }
+}
+
 variable "volumes" {
   description = "(Optional) A set of volume blocks that containers in your task may use"
   type = list(object({
