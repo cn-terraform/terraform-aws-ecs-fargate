@@ -75,7 +75,7 @@ module "td" {
 #------------------------------------------------------------------------------
 module "ecs-fargate-service" {
   source  = "cn-terraform/ecs-fargate-service/aws"
-  version = "2.0.27"
+  version = "2.0.28"
   # source  = "../terraform-aws-ecs-fargate-service"
 
   name_prefix = var.name_prefix
@@ -117,6 +117,13 @@ module "ecs-fargate-service" {
   lb_enable_cross_zone_load_balancing = var.lb_enable_cross_zone_load_balancing
   lb_enable_http2                     = var.lb_enable_http2
   lb_ip_address_type                  = var.lb_ip_address_type
+
+  # Application Load Balancer Logs
+  enable_s3_logs                                 = var.enable_s3_logs
+  block_s3_bucket_public_access                  = var.block_s3_bucket_public_access
+  enable_s3_bucket_server_side_encryption        = var.enable_s3_bucket_server_side_encryption
+  s3_bucket_server_side_encryption_sse_algorithm = var.s3_bucket_server_side_encryption_sse_algorithm
+  s3_bucket_server_side_encryption_key           = var.s3_bucket_server_side_encryption_key
 
   # Access Control to Application Load Balancer
   lb_http_ports                    = var.lb_http_ports
