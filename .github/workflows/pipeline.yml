@@ -16,7 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Terraform Init
-        run: terraform init
+        run: terraform init -upgrade
         working-directory: examples/test
       - name: Terraform Validate
         run: terraform validate
@@ -29,7 +29,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Terraform Init
-        run: terraform init
+        run: terraform init -upgrade
         working-directory: examples/test
       - name: Terraform Plan (Mock)
         run: terraform plan
