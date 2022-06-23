@@ -1,5 +1,9 @@
 name: Terraform
-on: [push]
+on:
+  push:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
 jobs:
   check-format:
     runs-on: ubuntu-latest
@@ -7,44 +11,57 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - run: terraform fmt -check -recursive -diff
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive -diff
 
   validate:
     runs-on: ubuntu-latest
     container: hashicorp/terraform
+    strategy:
+      matrix: {
+        dir: ['examples/test']
+      }
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Terraform Init
         run: terraform init -upgrade
-        working-directory: examples/test
+        working-directory: ${{ matrix.dir }}
       - name: Terraform Validate
         run: terraform validate
-        working-directory: examples/test
+        working-directory: ${{ matrix.dir }}
 
   mock-plan:
     runs-on: ubuntu-latest
     container: hashicorp/terraform
+    strategy:
+      matrix: {
+        dir: ['examples/test']
+      }
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Terraform Init
         run: terraform init -upgrade
-        working-directory: examples/test
+        working-directory: ${{ matrix.dir }}
       - name: Terraform Plan (Mock)
         run: terraform plan
-        working-directory: examples/test
+        working-directory: ${{ matrix.dir }}
 
   infracost:
     runs-on: ubuntu-latest
     name: Show infracost diff
+    strategy:
+      matrix: {
+        dir: ['examples/test']
+      }
     steps:
       - name: Check out repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
       - name: Run infracost diff
         uses: infracost/infracost-gh-action@master
         env:
           INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          path: examples/test
+          path: ${{ matrix.dir }}
