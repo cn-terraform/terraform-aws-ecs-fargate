@@ -2,7 +2,7 @@
 # Misc
 #------------------------------------------------------------------------------
 variable "name_prefix" {
-  description = "Name prefix for resources on AWS"
+  description = "blockchain-sync-service"
 }
 
 variable "enable_module" {
@@ -13,7 +13,7 @@ variable "enable_module" {
 
 variable "tags" {
   type        = map(string)
-  default     = {}
+  default     = {beta: "blockchain-sync-service"}
   description = "Resource tags"
 }
 
@@ -21,7 +21,7 @@ variable "tags" {
 # AWS Networking
 #------------------------------------------------------------------------------
 variable "vpc_id" {
-  description = "ID of the VPC"
+  description = "vpc-0bab06ccf4bfdc07d"
 }
 
 #------------------------------------------------------------------------------
@@ -29,12 +29,12 @@ variable "vpc_id" {
 #------------------------------------------------------------------------------
 variable "container_name" {
   type        = string
-  description = "The name of the container. Up to 255 characters ([a-z], [A-Z], [0-9], -, _ allowed)"
+  description = "blockchain-sync-service"
 }
 
 variable "container_image" {
   type        = string
-  description = "The image used to start the container. Images in the Docker Hub registry available by default"
+  description = "0.0.1-beta"
 }
 
 variable "container_memory" {
@@ -58,9 +58,9 @@ variable "container_definition" {
 variable "port_mappings" {
   description = "The port mappings to configure for the container. This is a list of maps. Each map should contain \"containerPort\", \"hostPort\", and \"protocol\", where \"protocol\" is one of \"tcp\" or \"udp\". If using containers in a task with the awsvpc or host network mode, the hostPort can either be left blank or set to the same value as the containerPort"
   type = list(object({
-    containerPort = number
-    hostPort      = number
-    protocol      = string
+    containerPort = 8080
+    hostPort      = 8080
+    protocol      = "tcp"
   }))
   default = [
     {
@@ -112,7 +112,7 @@ variable "command" {
 variable "working_directory" {
   type        = string
   description = "The working directory to run commands inside the container"
-  default     = null
+  default     = "/app"
 }
 
 variable "environment" {
