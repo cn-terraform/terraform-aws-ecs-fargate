@@ -47,6 +47,13 @@ jobs:
       matrix: {
         dir: ['examples/test']
       }
+    services:
+      localstack:
+        image: localstack/localstack
+        env:
+          SERVICES: apigateway,cloudformation,cloudwatch,dynamodb,es,firehose,iam,kinesis,lambda,route53,redshift,s3,secretsmanager,ses,sns,sqs,ssm,stepfunctions,sts
+        ports:
+          - 4566:4566
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
