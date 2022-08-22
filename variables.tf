@@ -545,6 +545,12 @@ variable "lb_ip_address_type" {
   default     = "ipv4"
 }
 
+variable "lb_waf_web_acl_arn" {
+  description = "ARN of a WAFV2 to associate with the ALB"
+  type        = string
+  default     = ""
+}
+
 #------------------------------------------------------------------------------
 # APPLICATION LOAD BALANCER LOGS
 #------------------------------------------------------------------------------

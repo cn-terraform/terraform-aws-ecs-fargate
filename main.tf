@@ -117,6 +117,7 @@ module "ecs-fargate-service" {
   lb_enable_cross_zone_load_balancing = var.lb_enable_cross_zone_load_balancing
   lb_enable_http2                     = var.lb_enable_http2
   lb_ip_address_type                  = var.lb_ip_address_type
+  waf_web_acl_arn                     = var.lb_waf_web_acl_arn
 
   # Application Load Balancer Logs
   enable_s3_logs                                 = var.enable_s3_logs
