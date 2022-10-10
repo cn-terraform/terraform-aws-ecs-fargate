@@ -109,6 +109,7 @@ module "ecs-fargate-service" {
   ecs_cluster_name   = module.ecs-cluster.aws_ecs_cluster_cluster_name
 
   # Application Load Balancer
+  custom_lb_arn                       = var.custom_lb_arn
   lb_internal                         = var.lb_internal
   lb_security_groups                  = var.lb_security_groups
   lb_drop_invalid_header_fields       = var.lb_drop_invalid_header_fields
