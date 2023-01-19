@@ -17,7 +17,7 @@ Check valid versions on:
 
 ## Install pre commit hooks.
 
-Pleas run this command right after cloning the repository.
+Please run this command right after cloning the repository.
 
         pre-commit install
 
