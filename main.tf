@@ -84,6 +84,7 @@ module "ecs-fargate-service" {
   ecs_cluster_arn                    = module.ecs-cluster.aws_ecs_cluster_cluster_arn
   deployment_maximum_percent         = var.deployment_maximum_percent
   deployment_minimum_healthy_percent = var.deployment_minimum_healthy_percent
+  deployment_controller              = var.deployment_controller
   desired_count                      = var.desired_count
   enable_ecs_managed_tags            = var.enable_ecs_managed_tags
   enable_execute_command             = var.enable_execute_command
