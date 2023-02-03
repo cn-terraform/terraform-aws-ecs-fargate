@@ -411,6 +411,12 @@ variable "deployment_minimum_healthy_percent" {
   default     = 100
 }
 
+variable "deployment_controller" {
+  description = "(Optional) Deployment controller"
+  type        = list(string)
+  default     = []
+}
+
 variable "desired_count" {
   description = "(Optional) The number of instances of the task definition to place and keep running. Defaults to 0."
   type        = number
