@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/linux,macos,windows,terraform,visualstudiocode,sublimetext
-# Edit at https://www.toptal.com/developers/gitignore?templates=linux,macos,windows,terraform,visualstudiocode,sublimetext
+# Created by https://www.toptal.com/developers/gitignore/api/linux,macos,windows,terraform,sublimetext,visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?templates=linux,macos,windows,terraform,sublimetext,visualstudiocode
 
 ### Linux ###
 *~
@@ -163,4 +163,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/linux,macos,windows,terraform,visualstudiocode,sublimetext
+# End of https://www.toptal.com/developers/gitignore/api/linux,macos,windows,terraform,sublimetext,visualstudiocode
