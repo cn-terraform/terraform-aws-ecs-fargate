@@ -23,24 +23,7 @@ jobs:
       - name: Terraform Format Check
         run: terraform fmt -check -recursive -diff
 
-  validate:
-    runs-on: ubuntu-latest
-    container: hashicorp/terraform
-    strategy:
-      matrix: {
-        dir: ['examples/test']
-      }
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Terraform Init
-        run: terraform init -upgrade
-        working-directory: ${{ matrix.dir }}
-      - name: Terraform Validate
-        run: terraform validate
-        working-directory: ${{ matrix.dir }}
-
-  mock-plan:
+  validations:
     runs-on: ubuntu-latest
     container: hashicorp/terraform
     strategy:
@@ -60,24 +43,15 @@ jobs:
       - name: Terraform Init
         run: terraform init -upgrade
         working-directory: ${{ matrix.dir }}
+      - name: Terraform Validate
+        run: terraform validate
+        working-directory: ${{ matrix.dir }}
       - name: Terraform Plan (Mock)
         run: terraform plan
         working-directory: ${{ matrix.dir }}
-
-  infracost:
-    runs-on: ubuntu-latest
-    name: Show infracost diff
-    strategy:
-      matrix: {
-        dir: ['examples/test']
-      }
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-      - name: Run infracost diff
-        uses: infracost/infracost-gh-action@master
-        env:
-          INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup Infracost
+        uses: infracost/actions/setup@v2
         with:
-          path: ${{ matrix.dir }}
+          api-key: ${{ secrets.INFRACOST_API_KEY }}
+      - name: Generate Infracost cost estimate
+        run: infracost breakdown --path ${{ matrix.dir }}
