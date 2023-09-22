@@ -49,9 +49,3 @@ jobs:
       - name: Terraform Plan (Mock)
         run: terraform plan
         working-directory: ${{ matrix.dir }}
-      - name: Setup Infracost
-        uses: infracost/actions/setup@v2
-        with:
-          api-key: ${{ secrets.INFRACOST_API_KEY }}
-      - name: Generate Infracost cost estimate
-        run: infracost breakdown --path ${{ matrix.dir }}
