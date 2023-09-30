@@ -14,57 +14,59 @@ module "ecs-cluster" {
 # ECS Task Definition
 #------------------------------------------------------------------------------
 module "td" {
-  source  = "cn-terraform/ecs-fargate-task-definition/aws"
-  version = "1.0.35"
+  #  source  = "cn-terraform/ecs-fargate-task-definition/aws"
+  #  version = "1.0.35"
   # source  = "../terraform-aws-ecs-fargate-task-definition"
+  source = "github.com/JaredDarling/terraform-aws-ecs-fargate-task-definition.git?ref=test"
 
-  name_prefix                  = var.name_prefix
-  container_name               = var.container_name
-  container_image              = var.container_image
-  container_memory             = var.container_memory
-  container_memory_reservation = var.container_memory_reservation
-  container_definition         = var.container_definition
-  port_mappings                = var.port_mappings
-  healthcheck                  = var.healthcheck
-  container_cpu                = var.container_cpu
-  essential                    = var.essential
-  entrypoint                   = var.entrypoint
-  command                      = var.command
-  working_directory            = var.working_directory
-  environment                  = var.environment
-  extra_hosts                  = var.extra_hosts
-  map_environment              = var.map_environment
-  environment_files            = var.environment_files
-  secrets                      = var.secrets
-  readonly_root_filesystem     = var.readonly_root_filesystem
-  linux_parameters             = var.linux_parameters
-  log_configuration            = var.log_configuration
-  firelens_configuration       = var.firelens_configuration
-  mount_points                 = var.mount_points
-  dns_servers                  = var.dns_servers
-  dns_search_domains           = var.dns_search_domains
-  ulimits                      = var.ulimits
-  repository_credentials       = var.repository_credentials
-  volumes_from                 = var.volumes_from
-  links                        = var.links
-  user                         = var.user
-  container_depends_on         = var.container_depends_on
-  docker_labels                = var.docker_labels
-  start_timeout                = var.start_timeout
-  stop_timeout                 = var.stop_timeout
-  privileged                   = var.privileged
-  system_controls              = var.system_controls
-  hostname                     = var.hostname
-  disable_networking           = var.disable_networking
-  interactive                  = var.interactive
-  pseudo_terminal              = var.pseudo_terminal
-  docker_security_options      = var.docker_security_options
+  additional_containers          = var.additional_containers
+  command                        = var.command
+  container_cpu                  = var.container_cpu
+  container_definition_overrides = var.container_definition_overrides
+  container_depends_on           = var.container_depends_on
+  container_image                = var.container_image
+  container_memory               = var.container_memory
+  container_memory_reservation   = var.container_memory_reservation
+  container_name                 = var.container_name
+  disable_networking             = var.disable_networking
+  dns_search_domains             = var.dns_search_domains
+  dns_servers                    = var.dns_servers
+  docker_labels                  = var.docker_labels
+  docker_security_options        = var.docker_security_options
+  entrypoint                     = var.entrypoint
+  environment                    = var.environment
+  environment_files              = var.environment_files
+  essential                      = var.essential
+  extra_hosts                    = var.extra_hosts
+  firelens_configuration         = var.firelens_configuration
+  healthcheck                    = var.healthcheck
+  hostname                       = var.hostname
+  interactive                    = var.interactive
+  links                          = var.links
+  linux_parameters               = var.linux_parameters
+  log_configuration              = var.log_configuration
+  map_environment                = var.map_environment
+  mount_points                   = var.mount_points
+  name_prefix                    = var.name_prefix
+  port_mappings                  = var.port_mappings
+  privileged                     = var.privileged
+  pseudo_terminal                = var.pseudo_terminal
+  readonly_root_filesystem       = var.readonly_root_filesystem
+  repository_credentials         = var.repository_credentials
+  secrets                        = var.secrets
+  start_timeout                  = var.start_timeout
+  stop_timeout                   = var.stop_timeout
+  system_controls                = var.system_controls
+  ulimits                        = var.ulimits
+  user                           = var.user
+  volumes_from                   = var.volumes_from
+  working_directory              = var.working_directory
 
+  ecs_task_execution_role_custom_policies = var.ecs_task_execution_role_custom_policies
+  ephemeral_storage_size                  = var.ephemeral_storage_size
   permissions_boundary                    = var.permissions_boundary
   placement_constraints                   = var.placement_constraints_task_definition
   proxy_configuration                     = var.proxy_configuration
-  ephemeral_storage_size                  = var.ephemeral_storage_size
-  ecs_task_execution_role_custom_policies = var.ecs_task_execution_role_custom_policies
   volumes                                 = var.volumes
 
   tags = var.tags
@@ -74,9 +76,10 @@ module "td" {
 # ECS Service
 #------------------------------------------------------------------------------
 module "ecs-fargate-service" {
-  source  = "cn-terraform/ecs-fargate-service/aws"
-  version = "2.0.41"
+  # source  = "cn-terraform/ecs-fargate-service/aws"
+  # version = "2.0.41"
   # source  = "../terraform-aws-ecs-fargate-service"
+  source = "github.com/JaredDarling/terraform-aws-ecs-fargate-service.git?ref=test"
 
   name_prefix = var.name_prefix
   vpc_id      = var.vpc_id
@@ -88,6 +91,7 @@ module "ecs-fargate-service" {
   desired_count                      = var.desired_count
   enable_ecs_managed_tags            = var.enable_ecs_managed_tags
   enable_execute_command             = var.enable_execute_command
+  force_new_deployment               = var.force_new_deployment
   health_check_grace_period_seconds  = var.health_check_grace_period_seconds
   ordered_placement_strategy         = var.ordered_placement_strategy
   placement_constraints              = var.ecs_service_placement_constraints
@@ -115,6 +119,7 @@ module "ecs-fargate-service" {
 
   # Application Load Balancer
   custom_lb_arn                       = var.custom_lb_arn
+  additional_lbs                      = var.additional_lbs
   lb_internal                         = var.lb_internal
   lb_security_groups                  = var.lb_security_groups
   lb_drop_invalid_header_fields       = var.lb_drop_invalid_header_fields

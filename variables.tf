@@ -27,6 +27,12 @@ variable "vpc_id" {
 #------------------------------------------------------------------------------
 # AWS ECS Container Definition Variables
 #------------------------------------------------------------------------------
+variable "additional_containers" {
+  description = "Additional container definitions (sidecars) to use for the task."
+  default     = []
+  type        = any #cloudposse/ecs-container-definition/aws
+}
+
 variable "container_name" {
   type        = string
   description = "The name of the container. Up to 255 characters ([a-z], [A-Z], [0-9], -, _ allowed)"
@@ -49,7 +55,7 @@ variable "container_memory_reservation" {
   default     = 2048 # 2 GB
 }
 
-variable "container_definition" {
+variable "container_definition_overrides" {
   type        = map(any)
   description = "Container definition overrides which allows for extra keys or overriding existing keys."
   default     = {}
@@ -429,6 +435,12 @@ variable "enable_ecs_managed_tags" {
   default     = false
 }
 
+variable "force_new_deployment" {
+  description = "(Optional) Enable to force a new task deployment of the service. This can be used to update tasks to use a newer Docker image with same image/tag combination (e.g. myimage:latest), roll Fargate tasks onto a newer platform version, or immediately deploy ordered_placement_strategy and placement_constraints updates."
+  default     = false
+  type        = bool
+}
+
 variable "enable_execute_command" {
   description = "(Optional) Specifies whether to enable Amazon ECS Exec for the tasks within the service."
   type        = bool
@@ -519,6 +531,19 @@ variable "custom_lb_arn" {
   description = "ARN of the Load Balancer to use in the ECS service. If provided, this module will not create a load balancer and will use the one provided in this variable"
   type        = string
   default     = null
+}
+
+variable "additional_lbs" {
+  default     = {}
+  description = "Additional load balancers to add to ECS service"
+  type = map(object
+    (
+      {
+        target_group_arn = string
+        container_port   = number
+      }
+    )
+  )
 }
 
 variable "lb_internal" {
