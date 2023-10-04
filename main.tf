@@ -14,10 +14,9 @@ module "ecs-cluster" {
 # ECS Task Definition
 #------------------------------------------------------------------------------
 module "td" {
-  #  source  = "cn-terraform/ecs-fargate-task-definition/aws"
-  #  version = "1.0.35"
+  source  = "cn-terraform/ecs-fargate-task-definition/aws"
+  version = "1.0.36"
   # source  = "../terraform-aws-ecs-fargate-task-definition"
-  source = "github.com/JaredDarling/terraform-aws-ecs-fargate-task-definition.git?ref=test"
 
   additional_containers          = var.additional_containers
   command                        = var.command
@@ -76,10 +75,9 @@ module "td" {
 # ECS Service
 #------------------------------------------------------------------------------
 module "ecs-fargate-service" {
-  # source  = "cn-terraform/ecs-fargate-service/aws"
-  # version = "2.0.41"
+  source  = "cn-terraform/ecs-fargate-service/aws"
+  version = "2.0.42"
   # source  = "../terraform-aws-ecs-fargate-service"
-  source = "github.com/JaredDarling/terraform-aws-ecs-fargate-service.git?ref=test"
 
   name_prefix = var.name_prefix
   vpc_id      = var.vpc_id
