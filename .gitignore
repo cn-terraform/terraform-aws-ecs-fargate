@@ -1,3 +1,5 @@
+.terraform.lock.hcl
+
 # Created by https://www.toptal.com/developers/gitignore/api/linux,macos,windows,terraform,sublimetext,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=linux,macos,windows,terraform,sublimetext,visualstudiocode
 
