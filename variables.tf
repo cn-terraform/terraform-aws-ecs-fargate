@@ -420,7 +420,7 @@ variable "deployment_minimum_healthy_percent" {
 variable "deployment_controller" {
   description = "(Optional) Deployment controller"
   type        = list(any)
-  default     = [{
+  default = [{
     type = "ECS"
   }]
 }
