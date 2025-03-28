@@ -76,7 +76,7 @@ module "td" {
 #------------------------------------------------------------------------------
 module "ecs-fargate-service" {
   source  = "cn-terraform/ecs-fargate-service/aws"
-  version = "2.0.43"
+  version = "2.0.44"
   # source  = "../terraform-aws-ecs-fargate-service"
 
   name_prefix = var.name_prefix
