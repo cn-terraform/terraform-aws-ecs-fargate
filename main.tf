@@ -15,7 +15,7 @@ module "ecs-cluster" {
 #------------------------------------------------------------------------------
 module "td" {
   source  = "cn-terraform/ecs-fargate-task-definition/aws"
-  version = "1.0.36"
+  version = "1.0.38"
   # source  = "../terraform-aws-ecs-fargate-task-definition"
 
   additional_containers          = var.additional_containers
