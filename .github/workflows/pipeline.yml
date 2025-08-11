@@ -19,7 +19,7 @@ jobs:
     container: hashicorp/terraform
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Terraform Format Check
         run: terraform fmt -check -recursive -diff
 
@@ -39,7 +39,7 @@ jobs:
           - 4566:4566
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Terraform Init
         run: terraform init -upgrade
         working-directory: ${{ matrix.dir }}
