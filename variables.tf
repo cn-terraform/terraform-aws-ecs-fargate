@@ -501,6 +501,12 @@ variable "deployment_circuit_breaker_rollback" {
   default     = false
 }
 
+variable "wait_for_ready_state" {
+  description = "(Optional) If true, Terraform will wait for the service to reach a steady state (like aws ecs wait services-stable) before continuing. Default false."
+  type        = bool
+  default     = false
+}
+
 #------------------------------------------------------------------------------
 # AWS ECS SERVICE network_configuration BLOCK
 #------------------------------------------------------------------------------
