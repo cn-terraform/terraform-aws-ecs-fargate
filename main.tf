@@ -76,7 +76,7 @@ module "td" {
 #------------------------------------------------------------------------------
 module "ecs-fargate-service" {
   source  = "cn-terraform/ecs-fargate-service/aws"
-  version = "2.0.49"
+  version = "2.0.50"
   # source  = "../terraform-aws-ecs-fargate-service"
 
   name_prefix = var.name_prefix
@@ -97,6 +97,7 @@ module "ecs-fargate-service" {
   propagate_tags                     = var.propagate_tags
   service_registries                 = var.service_registries
   task_definition_arn                = module.td.aws_ecs_task_definition_td_arn
+  wait_for_ready_state               = var.wait_for_ready_state
 
   # Deployment circuit breaker
   deployment_circuit_breaker_enabled  = var.deployment_circuit_breaker_enabled
