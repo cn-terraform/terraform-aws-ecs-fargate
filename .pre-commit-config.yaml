@@ -17,7 +17,7 @@ repos:
       - id: trailing-whitespace
         args: [--markdown-linebreak-ext=md]
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.104.0
+    rev: v1.105.0
     hooks:
       - id: terraform_docs
       - id: terraform_fmt

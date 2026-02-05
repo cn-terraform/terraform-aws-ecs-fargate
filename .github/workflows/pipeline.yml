@@ -23,13 +23,28 @@ jobs:
       - name: Terraform Format Check
         run: terraform fmt -check -recursive -diff
 
+  discover-examples:
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+      - name: Set validation matrix
+        id: set-matrix
+        run: |
+          # Find all subdirectories in examples folder and convert to JSON array
+          DIRS=$(find examples -maxdepth 1 -mindepth 1 -type d | sort)
+          MATRIX=$(echo "$DIRS" | jq -R . | jq -s . | tr -d '\n')
+          echo "matrix=${MATRIX}" >> $GITHUB_OUTPUT
+
   validations:
+    needs: discover-examples
     runs-on: ubuntu-latest
     container: hashicorp/terraform
     strategy:
-      matrix: {
-        dir: ['examples/test']
-      }
+      matrix:
+        dir: ${{ fromJson(needs.discover-examples.outputs.matrix) }}
     services:
       localstack:
         image: localstack/localstack
