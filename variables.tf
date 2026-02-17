@@ -3,25 +3,49 @@
 #------------------------------------------------------------------------------
 variable "name_prefix" {
   description = "Name prefix for resources on AWS"
+  type        = string
 }
 
-variable "enable_module" {
-  description = "(Optional) Boolean variable to enable or disable the whole module. Defaults to true."
-  type        = bool
-  default     = true
-}
-
-variable "tags" {
+variable "additional_tags" {
+  description = "Tags to add to all resources. This is a map of string: {key: value}"
   type        = map(string)
   default     = {}
-  description = "Resource tags"
 }
 
-#------------------------------------------------------------------------------
+################
 # AWS Networking
-#------------------------------------------------------------------------------
+################
 variable "vpc_id" {
   description = "ID of the VPC"
+  type        = string
+}
+
+#############
+# ECS Cluster
+#############
+variable "ecs_cluster_configuration" {
+  description = "Settings for the ECS Cluster module. For more information check https://registry.terraform.io/modules/cn-terraform/ecs-cluster"
+  type = object({
+    additional_tags = optional(map(string))
+    configuration = optional(object({
+      execute_command_configuration = object({
+        kms_key_id = optional(string)
+        log_configuration = object({
+          cloud_watch_encryption_enabled = optional(bool)
+          cloud_watch_log_group_name     = optional(string)
+          s3_bucket_name                 = optional(string)
+          s3_bucket_encryption_enabled   = optional(bool)
+          s3_key_prefix                  = optional(string)
+        })
+        logging = optional(string)
+      })
+    }))
+    containerInsights = optional(bool, false)
+    service_connect_defaults = optional(object({
+      namespace = string
+    }))
+  })
+  default = null
 }
 
 #------------------------------------------------------------------------------
@@ -29,35 +53,35 @@ variable "vpc_id" {
 #------------------------------------------------------------------------------
 variable "additional_containers" {
   description = "Additional container definitions (sidecars) to use for the task."
-  default     = []
   type        = any #cloudposse/ecs-container-definition/aws
+  default     = []
 }
 
 variable "container_name" {
-  type        = string
   description = "The name of the container. Up to 255 characters ([a-z], [A-Z], [0-9], -, _ allowed)"
+  type        = string
 }
 
 variable "container_image" {
-  type        = string
   description = "The image used to start the container. Images in the Docker Hub registry available by default"
+  type        = string
 }
 
 variable "container_memory" {
-  type        = number
   description = "(Optional) The amount of memory (in MiB) to allow the container to use. This is a hard limit, if the container attempts to exceed the container_memory, the container is killed. This field is optional for Fargate launch type and the total amount of container_memory of all containers in a task will need to be lower than the task memory value"
+  type        = number
   default     = 4096 # 4 GB
 }
 
 variable "container_memory_reservation" {
-  type        = number
   description = "(Optional) The amount of memory (in MiB) to reserve for the container. If container needs to exceed this threshold, it can do so up to the set container_memory hard limit"
+  type        = number
   default     = 2048 # 2 GB
 }
 
 variable "container_definition_overrides" {
-  type        = map(any)
   description = "Container definition overrides which allows for extra keys or overriding existing keys."
+  type        = map(any)
   default     = {}
 }
 
@@ -92,26 +116,26 @@ variable "healthcheck" {
 
 variable "container_cpu" {
   # https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html#fargate-task-defs
-  type        = number
   description = "(Optional) The number of cpu units to reserve for the container. This is optional for tasks using Fargate launch type and the total amount of container_cpu of all containers in a task will need to be lower than the task-level cpu value"
+  type        = number
   default     = 1024 # 1 vCPU
 }
 
 variable "essential" {
-  type        = bool
   description = "Determines whether all other containers in a task are stopped, if this container fails or stops for any reason. Due to how Terraform type casts booleans in json it is required to double quote this value"
+  type        = bool
   default     = true
 }
 
 variable "entrypoint" {
-  type        = list(string)
   description = "The entry point that is passed to the container"
+  type        = list(string)
   default     = []
 }
 
 variable "command" {
-  type        = list(string)
   description = "The command that is passed to the container"
+  type        = list(string)
   default     = []
 }
 
@@ -469,11 +493,13 @@ variable "ecs_service_placement_constraints" {
 
 variable "platform_version" {
   description = "(Optional) The platform version on which to run your service. Defaults to 1.4.0. More information about Fargate platform versions can be found in the AWS ECS User Guide."
+  type        = string
   default     = "1.4.0"
 }
 
 variable "propagate_tags" {
   description = "(Optional) Specifies whether to propagate the tags from the task definition or the service to the tasks. The valid values are SERVICE and TASK_DEFINITION. Default to SERVICE"
+  type        = string
   default     = "SERVICE"
 }
 

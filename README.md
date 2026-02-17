@@ -19,23 +19,26 @@ Check valid versions on:
 
 Please run this command right after cloning the repository.
 
-        pre-commit install
+```bash
+pre-commit install
+```
 
-For that you may need to install the folowwing tools:
+For that you may need to install the following tools:
 * [Pre-commit](https://pre-commit.com/)
 * [Terraform Docs](https://terraform-docs.io/)
 
 In order to run all checks at any point run the following command:
 
-        pre-commit run --all-files
+```bash
+pre-commit run --all-files
+```
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.7 |
 
 ## Providers
 
@@ -45,7 +48,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_ecs-cluster"></a> [ecs-cluster](#module\_ecs-cluster) | cn-terraform/ecs-cluster/aws | 1.0.12 |
+| <a name="module_ecs-cluster"></a> [ecs-cluster](#module\_ecs-cluster) | cn-terraform/ecs-cluster/aws | 2.0.0 |
 | <a name="module_ecs-fargate-service"></a> [ecs-fargate-service](#module\_ecs-fargate-service) | cn-terraform/ecs-fargate-service/aws | 2.0.50 |
 | <a name="module_td"></a> [td](#module\_td) | cn-terraform/ecs-fargate-task-definition/aws | 1.0.38 |
 
@@ -60,6 +63,7 @@ No resources.
 | <a name="input_additional_certificates_arn_for_https_listeners"></a> [additional\_certificates\_arn\_for\_https\_listeners](#input\_additional\_certificates\_arn\_for\_https\_listeners) | (Optional) List of SSL server certificate ARNs for HTTPS listener. Use it if you need to set additional certificates besides default\_certificate\_arn | `list(any)` | `[]` | no |
 | <a name="input_additional_containers"></a> [additional\_containers](#input\_additional\_containers) | Additional container definitions (sidecars) to use for the task. | `any` | `[]` | no |
 | <a name="input_additional_lbs"></a> [additional\_lbs](#input\_additional\_lbs) | Additional load balancers to add to ECS service | <pre>map(object<br/>    (<br/>      {<br/>        target_group_arn = string<br/>        container_port   = number<br/>      }<br/>    )<br/>  )</pre> | `{}` | no |
+| <a name="input_additional_tags"></a> [additional\_tags](#input\_additional\_tags) | Tags to add to all resources. This is a map of string: {key: value} | `map(string)` | `{}` | no |
 | <a name="input_assign_public_ip"></a> [assign\_public\_ip](#input\_assign\_public\_ip) | (Optional) Assign a public IP address to the ENI (Fargate launch type only). If true service will be associated with public subnets. Default false. | `bool` | `false` | no |
 | <a name="input_block_s3_bucket_public_access"></a> [block\_s3\_bucket\_public\_access](#input\_block\_s3\_bucket\_public\_access) | (Optional) If true, public access to the S3 bucket will be blocked. | `bool` | `true` | no |
 | <a name="input_command"></a> [command](#input\_command) | The command that is passed to the container | `list(string)` | `[]` | no |
@@ -83,13 +87,13 @@ No resources.
 | <a name="input_dns_servers"></a> [dns\_servers](#input\_dns\_servers) | Container DNS servers. This is a list of strings specifying the IP addresses of the DNS servers | `list(string)` | `[]` | no |
 | <a name="input_docker_labels"></a> [docker\_labels](#input\_docker\_labels) | The configuration options to send to the `docker_labels` | `map(string)` | `null` | no |
 | <a name="input_docker_security_options"></a> [docker\_security\_options](#input\_docker\_security\_options) | A list of strings to provide custom labels for SELinux and AppArmor multi-level security systems. | `list(string)` | `[]` | no |
+| <a name="input_ecs_cluster_configuration"></a> [ecs\_cluster\_configuration](#input\_ecs\_cluster\_configuration) | Settings for the ECS Cluster module. For more information check https://registry.terraform.io/modules/cn-terraform/ecs-cluster | <pre>object({<br/>    additional_tags = optional(map(string))<br/>    configuration = optional(object({<br/>      execute_command_configuration = object({<br/>        kms_key_id = optional(string)<br/>        log_configuration = object({<br/>          cloud_watch_encryption_enabled = optional(bool)<br/>          cloud_watch_log_group_name     = optional(string)<br/>          s3_bucket_name                 = optional(string)<br/>          s3_bucket_encryption_enabled   = optional(bool)<br/>          s3_key_prefix                  = optional(string)<br/>        })<br/>        logging = optional(string)<br/>      })<br/>    }))<br/>    containerInsights = optional(bool, false)<br/>    service_connect_defaults = optional(object({<br/>      namespace = string<br/>    }))<br/>  })</pre> | `null` | no |
 | <a name="input_ecs_service_placement_constraints"></a> [ecs\_service\_placement\_constraints](#input\_ecs\_service\_placement\_constraints) | (Optional) rules that are taken into consideration during task placement. Maximum number of placement\_constraints is 10. This is a list of maps, where each map should contain "type" and "expression" | `list(any)` | `[]` | no |
 | <a name="input_ecs_service_security_groups"></a> [ecs\_service\_security\_groups](#input\_ecs\_service\_security\_groups) | (Optional) The security groups associated with the task or service. If you do not specify a security group, the default security group for the VPC is used. | `list(any)` | `[]` | no |
 | <a name="input_ecs_task_execution_role_custom_policies"></a> [ecs\_task\_execution\_role\_custom\_policies](#input\_ecs\_task\_execution\_role\_custom\_policies) | (Optional) Custom policies to attach to the ECS task execution role. For example for reading secrets from AWS Systems Manager Parameter Store or Secrets Manager | `list(string)` | `[]` | no |
 | <a name="input_enable_autoscaling"></a> [enable\_autoscaling](#input\_enable\_autoscaling) | (Optional) If true, autoscaling alarms will be created. | `bool` | `true` | no |
 | <a name="input_enable_ecs_managed_tags"></a> [enable\_ecs\_managed\_tags](#input\_enable\_ecs\_managed\_tags) | (Optional) Specifies whether to enable Amazon ECS managed tags for the tasks within the service. | `bool` | `false` | no |
 | <a name="input_enable_execute_command"></a> [enable\_execute\_command](#input\_enable\_execute\_command) | (Optional) Specifies whether to enable Amazon ECS Exec for the tasks within the service. | `bool` | `false` | no |
-| <a name="input_enable_module"></a> [enable\_module](#input\_enable\_module) | (Optional) Boolean variable to enable or disable the whole module. Defaults to true. | `bool` | `true` | no |
 | <a name="input_enable_s3_bucket_server_side_encryption"></a> [enable\_s3\_bucket\_server\_side\_encryption](#input\_enable\_s3\_bucket\_server\_side\_encryption) | (Optional) If true, server side encryption will be applied. | `bool` | `true` | no |
 | <a name="input_enable_s3_logs"></a> [enable\_s3\_logs](#input\_enable\_s3\_logs) | (Optional) If true, all resources to send LB logs to S3 will be created | `bool` | `true` | no |
 | <a name="input_entrypoint"></a> [entrypoint](#input\_entrypoint) | The entry point that is passed to the container | `list(string)` | `[]` | no |
@@ -135,7 +139,7 @@ No resources.
 | <a name="input_log_configuration"></a> [log\_configuration](#input\_log\_configuration) | Log configuration options to send to a custom log driver for the container. For more details, see https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_LogConfiguration.html | `any` | `null` | no |
 | <a name="input_map_environment"></a> [map\_environment](#input\_map\_environment) | The environment variables to pass to the container. This is a map of string: {key: value}. map\_environment overrides environment | `map(string)` | `null` | no |
 | <a name="input_mount_points"></a> [mount\_points](#input\_mount\_points) | Container mount points. This is a list of maps, where each map should contain a `containerPath` and `sourceVolume`. The `readOnly` key is optional. | `list(any)` | `[]` | no |
-| <a name="input_name_prefix"></a> [name\_prefix](#input\_name\_prefix) | Name prefix for resources on AWS | `any` | n/a | yes |
+| <a name="input_name_prefix"></a> [name\_prefix](#input\_name\_prefix) | Name prefix for resources on AWS | `string` | n/a | yes |
 | <a name="input_ordered_placement_strategy"></a> [ordered\_placement\_strategy](#input\_ordered\_placement\_strategy) | (Optional) Service level strategy rules that are taken into consideration during task placement. List from top to bottom in order of precedence. The maximum number of ordered\_placement\_strategy blocks is 5. This is a list of maps where each map should contain "id" and "field" | `list(any)` | `[]` | no |
 | <a name="input_permissions_boundary"></a> [permissions\_boundary](#input\_permissions\_boundary) | (Optional) The ARN of the policy that is used to set the permissions boundary for the `ecs_task_execution_role` role. | `string` | `null` | no |
 | <a name="input_placement_constraints_task_definition"></a> [placement\_constraints\_task\_definition](#input\_placement\_constraints\_task\_definition) | (Optional) A set of placement constraints rules that are taken into consideration during task placement. Maximum number of placement\_constraints is 10. This is a list of maps, where each map should contain "type" and "expression" | `list(any)` | `[]` | no |
@@ -157,12 +161,11 @@ No resources.
 | <a name="input_start_timeout"></a> [start\_timeout](#input\_start\_timeout) | Time duration (in seconds) to wait before giving up on resolving dependencies for a container | `number` | `null` | no |
 | <a name="input_stop_timeout"></a> [stop\_timeout](#input\_stop\_timeout) | Time duration (in seconds) to wait before the container is forcefully killed if it doesn't exit normally on its own | `number` | `null` | no |
 | <a name="input_system_controls"></a> [system\_controls](#input\_system\_controls) | A list of namespaced kernel parameters to set in the container, mapping to the --sysctl option to docker run. This is a list of maps: { namespace = "", value = ""} | `list(map(string))` | `[]` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | Resource tags | `map(string)` | `{}` | no |
 | <a name="input_ulimits"></a> [ulimits](#input\_ulimits) | Container ulimit settings. This is a list of maps, where each map should contain "name", "hardLimit" and "softLimit" | <pre>list(object({<br/>    name      = string<br/>    hardLimit = number<br/>    softLimit = number<br/>  }))</pre> | `[]` | no |
 | <a name="input_user"></a> [user](#input\_user) | The user to run as inside the container. Can be any of these formats: user, user:group, uid, uid:gid, user:gid, uid:group. The default (null) will use the container's configured `USER` directive or root if not set. | `string` | `null` | no |
 | <a name="input_volumes"></a> [volumes](#input\_volumes) | (Optional) A set of volume blocks that containers in your task may use | <pre>list(object({<br/>    host_path = string<br/>    name      = string<br/>    docker_volume_configuration = list(object({<br/>      autoprovision = bool<br/>      driver        = string<br/>      driver_opts   = map(string)<br/>      labels        = map(string)<br/>      scope         = string<br/>    }))<br/>    efs_volume_configuration = list(object({<br/>      file_system_id          = string<br/>      root_directory          = string<br/>      transit_encryption      = string<br/>      transit_encryption_port = string<br/>      authorization_config = list(object({<br/>        access_point_id = string<br/>        iam             = string<br/>      }))<br/>    }))<br/>  }))</pre> | `[]` | no |
 | <a name="input_volumes_from"></a> [volumes\_from](#input\_volumes\_from) | A list of VolumesFrom maps which contain "sourceContainer" (name of the container that has the volumes to mount) and "readOnly" (whether the container can write to the volume) | <pre>list(object({<br/>    sourceContainer = string<br/>    readOnly        = bool<br/>  }))</pre> | `[]` | no |
-| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | ID of the VPC | `any` | n/a | yes |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | ID of the VPC | `string` | n/a | yes |
 | <a name="input_wait_for_ready_state"></a> [wait\_for\_ready\_state](#input\_wait\_for\_ready\_state) | (Optional) If true, Terraform will wait for the service to reach a steady state (like aws ecs wait services-stable) before continuing. Default false. | `bool` | `false` | no |
 | <a name="input_working_directory"></a> [working\_directory](#input\_working\_directory) | The working directory to run commands inside the container | `string` | `null` | no |
 
@@ -214,4 +217,4 @@ No resources.
 | <a name="output_lb_https_tgs_arns"></a> [lb\_https\_tgs\_arns](#output\_lb\_https\_tgs\_arns) | List of HTTPS Target Groups ARNs |
 | <a name="output_lb_https_tgs_ids"></a> [lb\_https\_tgs\_ids](#output\_lb\_https\_tgs\_ids) | List of HTTPS Target Groups IDs |
 | <a name="output_lb_https_tgs_names"></a> [lb\_https\_tgs\_names](#output\_lb\_https\_tgs\_names) | List of HTTPS Target Groups Names |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->

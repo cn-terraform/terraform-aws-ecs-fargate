@@ -4,7 +4,9 @@ locals {
 }
 
 module "base-network" {
-  source     = "cn-terraform/networking/aws"
+  source  = "cn-terraform/networking/aws"
+  version = "3.0.1"
+
   cidr_block = "192.168.0.0/16"
 
   vpc_additional_tags = {
@@ -46,9 +48,14 @@ module "base-network" {
 }
 
 module "test" {
-  source              = "../../"
-  name_prefix         = "test"
-  vpc_id              = module.base-network.vpc_id
+  source      = "../../"
+  name_prefix = "test"
+  vpc_id      = module.base-network.vpc_id
+  ecs_cluster_configuration = {
+    additional_tags   = {}
+    containerInsights = true
+
+  }
   container_image     = "ubuntu"
   container_name      = "test"
   public_subnets_ids  = local.public_subnet_ids
