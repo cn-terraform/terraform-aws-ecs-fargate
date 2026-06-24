@@ -1,13 +1,15 @@
-#------------------------------------------------------------------------------
+#############
 # ECS Cluster
-#------------------------------------------------------------------------------
+#############
 module "ecs-cluster" {
   source  = "cn-terraform/ecs-cluster/aws"
-  version = "1.0.12"
+  version = "2.0.0"
   # source  = "../terraform-aws-ecs-cluster"
 
-  name = var.name_prefix
-  tags = var.tags
+  additional_tags          = merge(var.additional_tags, var.ecs_cluster_configuration.additional_tags)
+  name                     = var.name_prefix
+  containerInsights        = var.ecs_cluster_configuration.containerInsights
+  service_connect_defaults = var.ecs_cluster_configuration.service_connect_defaults
 }
 
 #------------------------------------------------------------------------------
@@ -68,7 +70,7 @@ module "td" {
   proxy_configuration                     = var.proxy_configuration
   volumes                                 = var.volumes
 
-  tags = var.tags
+  tags = var.additional_tags
 }
 
 #------------------------------------------------------------------------------
@@ -86,7 +88,7 @@ module "ecs-fargate-service" {
   deployment_maximum_percent         = var.deployment_maximum_percent
   deployment_minimum_healthy_percent = var.deployment_minimum_healthy_percent
   desired_count                      = var.desired_count
-  ecs_cluster_arn                    = module.ecs-cluster.aws_ecs_cluster_cluster_arn
+  ecs_cluster_arn                    = module.ecs-cluster.ecs_cluster.arn
   enable_ecs_managed_tags            = var.enable_ecs_managed_tags
   enable_execute_command             = var.enable_execute_command
   force_new_deployment               = var.force_new_deployment
@@ -114,7 +116,7 @@ module "ecs-fargate-service" {
 
   # ECS Autoscaling
   enable_autoscaling = var.enable_autoscaling
-  ecs_cluster_name   = module.ecs-cluster.aws_ecs_cluster_cluster_name
+  ecs_cluster_name   = module.ecs-cluster.ecs_cluster.name
 
   # Application Load Balancer
   custom_lb_arn                       = var.custom_lb_arn
@@ -163,5 +165,5 @@ module "ecs-fargate-service" {
   additional_certificates_arn_for_https_listeners = var.additional_certificates_arn_for_https_listeners
 
   # Optional tags
-  tags = var.tags
+  tags = var.additional_tags
 }
