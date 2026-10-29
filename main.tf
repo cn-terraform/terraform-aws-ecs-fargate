@@ -3,7 +3,7 @@
 #------------------------------------------------------------------------------
 module "ecs-cluster" {
   source  = "cn-terraform/ecs-cluster/aws"
-  version = "1.0.12"
+  version = "2.0.1"
   # source  = "../terraform-aws-ecs-cluster"
 
   name = var.name_prefix
