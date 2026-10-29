@@ -29,11 +29,11 @@ In order to run all checks at any point run the following command:
 
         pre-commit run --all-files
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4 |
 
@@ -44,7 +44,7 @@ No providers.
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_ecs-cluster"></a> [ecs-cluster](#module\_ecs-cluster) | cn-terraform/ecs-cluster/aws | 1.0.12 |
 | <a name="module_ecs-fargate-service"></a> [ecs-fargate-service](#module\_ecs-fargate-service) | cn-terraform/ecs-fargate-service/aws | 2.0.50 |
 | <a name="module_td"></a> [td](#module\_td) | cn-terraform/ecs-fargate-task-definition/aws | 1.0.38 |
@@ -56,7 +56,7 @@ No resources.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_additional_certificates_arn_for_https_listeners"></a> [additional\_certificates\_arn\_for\_https\_listeners](#input\_additional\_certificates\_arn\_for\_https\_listeners) | (Optional) List of SSL server certificate ARNs for HTTPS listener. Use it if you need to set additional certificates besides default\_certificate\_arn | `list(any)` | `[]` | no |
 | <a name="input_additional_containers"></a> [additional\_containers](#input\_additional\_containers) | Additional container definitions (sidecars) to use for the task. | `any` | `[]` | no |
 | <a name="input_additional_lbs"></a> [additional\_lbs](#input\_additional\_lbs) | Additional load balancers to add to ECS service | <pre>map(object<br/>    (<br/>      {<br/>        target_group_arn = string<br/>        container_port   = number<br/>      }<br/>    )<br/>  )</pre> | `{}` | no |
@@ -169,7 +169,7 @@ No resources.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_aws_ecs_cluster_cluster_arn"></a> [aws\_ecs\_cluster\_cluster\_arn](#output\_aws\_ecs\_cluster\_cluster\_arn) | The Amazon Resource Name (ARN) that identifies the cluster |
 | <a name="output_aws_ecs_cluster_cluster_id"></a> [aws\_ecs\_cluster\_cluster\_id](#output\_aws\_ecs\_cluster\_cluster\_id) | The Amazon ID that identifies the cluster |
 | <a name="output_aws_ecs_cluster_cluster_name"></a> [aws\_ecs\_cluster\_cluster\_name](#output\_aws\_ecs\_cluster\_cluster\_name) | The name of the cluster |
@@ -214,4 +214,4 @@ No resources.
 | <a name="output_lb_https_tgs_arns"></a> [lb\_https\_tgs\_arns](#output\_lb\_https\_tgs\_arns) | List of HTTPS Target Groups ARNs |
 | <a name="output_lb_https_tgs_ids"></a> [lb\_https\_tgs\_ids](#output\_lb\_https\_tgs\_ids) | List of HTTPS Target Groups IDs |
 | <a name="output_lb_https_tgs_names"></a> [lb\_https\_tgs\_names](#output\_lb\_https\_tgs\_names) | List of HTTPS Target Groups Names |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->
