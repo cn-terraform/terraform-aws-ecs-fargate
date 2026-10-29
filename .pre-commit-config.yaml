@@ -1,7 +1,50 @@
 repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
+      - id: check-illegal-windows-names
+      - id: check-json
+      - id: check-shebang-scripts-are-executable
+      - id: check-symlinks
+      - id: check-yaml
+      - id: detect-aws-credentials
+        args: [--allow-missing-credentials]
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: pretty-format-json
+      - id: requirements-txt-fixer
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.71.0
+    rev: v1.108.1
     hooks:
       - id: terraform_docs
       - id: terraform_fmt
       - id: terraform_validate
+      - id: terraform_tflint
+        args:
+          - --args=--enable-rule=terraform_comment_syntax
+          - --args=--enable-rule=terraform_deprecated_index
+          - --args=--enable-rule=terraform_deprecated_interpolation
+          - --args=--enable-rule=terraform_deprecated_lookup
+          - --args=--enable-rule=terraform_documented_outputs
+          - --args=--enable-rule=terraform_documented_variables
+          - --args=--enable-rule=terraform_json_syntax
+          - --args=--enable-rule=terraform_map_duplicate_keys
+          - --args=--enable-rule=terraform_module_pinned_source
+          - --args=--enable-rule=terraform_module_shallow_clone
+          - --args=--enable-rule=terraform_module_version
+          - --args=--enable-rule=terraform_naming_convention
+          - --args=--enable-rule=terraform_required_providers
+          - --args=--enable-rule=terraform_required_version
+          - --args=--enable-rule=terraform_standard_module_structure
+          - --args=--enable-rule=terraform_typed_variables
+          - --args=--enable-rule=terraform_unused_declarations
+          - --args=--enable-rule=terraform_unused_required_providers
+          - --args=--enable-rule=terraform_workspace_remote
+      - id: terraform_trivy
+        args:
+          - --args=--skip-dirs="**/.terraform"
